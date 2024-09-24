@@ -1,0 +1,15 @@
+.dishes-slider .swiper-pagination-bullet {
+  background-color: white;
+  opacity: 1;
+  width: 0.625rem;
+  height: 0.625rem;
+}
+
+.dishes-slider .swiper-pagination-bullet-active {
+  background-color: #f8b602;
+  border: 1px solid white;
+}
+
+.dishes-slider .swiper-pagination {
+  bottom: 3rem;
+}
