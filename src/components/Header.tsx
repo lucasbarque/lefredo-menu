@@ -8,10 +8,11 @@ export function Header({ title }: HeaderParams) {
   return (
     <div className="relative px-8 pt-8">
       <Image
-        src='/bg-white.png'
+        src="/bg-white.png"
         alt=""
         width={834}
         height={536}
+        priority
         className="absolute top-0 right-0 z-[1] w-4/5 opacity-10"
       />
       <div className="align-center flex">

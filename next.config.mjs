@@ -7,6 +7,16 @@ const nextConfig = {
         hostname: 'www.goomer.app',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'realfoodrn.com',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.themodernproper.com',
+        port: '',
+      },
     ],
   },
 };
