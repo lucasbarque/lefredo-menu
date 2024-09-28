@@ -34,7 +34,7 @@ interface DataProps {
 
 export default function Home() {
   const [data, setData] = useState<DataProps | null>(null);
-  const loading = false;
+  const [loading, setLoading] = useState(true);
 
   const searchParams = useSearchParams();
   const menuId = searchParams.get('menuId');
@@ -48,12 +48,11 @@ export default function Home() {
       const sectionsAPI: DataProps = data;
       if (sectionsAPI) {
         setData(sectionsAPI);
+        setLoading(false);
       }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  console.log(data);
 
   return (
     <>
