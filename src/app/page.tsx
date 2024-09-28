@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 
 import { useSearchParams } from 'next/navigation';
 
@@ -55,7 +55,7 @@ export default function Home() {
   }, []);
 
   return (
-    <>
+    <Suspense>
       {!loading && data && (
         <div
           className={clsx(
@@ -80,6 +80,6 @@ export default function Home() {
           </h2>
         </div>
       )}
-    </>
+    </Suspense>
   );
 }
