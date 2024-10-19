@@ -1,16 +1,10 @@
-'use client';
+import { headers } from 'next/headers';
 
-import { useEffect, useState } from 'react';
-
-import { useSearchParams } from 'next/navigation';
-
-import axios from 'axios';
 import clsx from 'clsx';
 
 import { DishList } from '@/components/DishList';
 import { Filter, SectionProps } from '@/components/Filter';
 import { Header } from '@/components/Header';
-import { MenuSkeleton } from '@/components/MenuSkeleton';
 
 interface DataProps {
   restaurant: {
@@ -32,32 +26,24 @@ interface DataProps {
   sections: SectionProps[] | [];
 }
 
-export default function Home() {
-  const [data, setData] = useState<DataProps | null>(null);
-  const loading = false;
+interface SearchParams {
+  searchParams: {
+    menuId?: string;
+    restaurantId?: string;
+  };
+}
 
-  const searchParams = useSearchParams();
-  const menuId = searchParams.get('menuId');
-  const restaurantId = searchParams.get('restaurantId');
-
-  useEffect(() => {
-    (async () => {
-      const { data } = await axios.get('/api/menu', {
-        params: { menuId, restaurantId },
-      });
-      const sectionsAPI: DataProps = data;
-      if (sectionsAPI) {
-        setData(sectionsAPI);
-      }
-    })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  console.log(data);
+export default async function Home({ searchParams }: SearchParams) {
+  const headersList = headers();
+  const hostname = headersList.get('x-current-path');
+  const dataAPI = await fetch(
+    `${hostname}/api/menu?menuId=${searchParams.menuId}&restaurantId=${searchParams.restaurantId}`,
+  );
+  const data = (await dataAPI.json()) as DataProps | null;
 
   return (
     <>
-      {!loading && data && (
+      {data && (
         <div
           className={clsx(
             'z-0 flex h-screen w-screen flex-col overflow-hidden bg-gray-200',
@@ -72,9 +58,7 @@ export default function Home() {
         </div>
       )}
 
-      {loading && <MenuSkeleton />}
-
-      {!data && !loading && (
+      {!data && (
         <div className="flex h-screen w-screen flex-col items-center justify-center overflow-hidden bg-gray-200">
           <h2 className="text-center text-heading-xg">
             Nenhum menu encontrado!

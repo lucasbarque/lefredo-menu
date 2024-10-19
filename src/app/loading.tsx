@@ -1,4 +1,4 @@
-export function MenuSkeleton() {
+export default function Loading() {
   return (
     <div className="h-full w-full animate-pulse overflow-hidden p-6">
       <div className="flex flex-col gap-3">

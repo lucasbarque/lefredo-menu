@@ -26,13 +26,9 @@ export function Filter({ sections = [] }: FilterProps) {
     setSectionIdSelected(sectionId);
   }
 
-  console.log(sections);
-
   useEffect(() => {
     setSectionIdSelected(sections[0].id);
   }, []);
-
-  console.log({ sections });
 
   return (
     <div className="z-10 flex gap-3 overflow-x-auto px-8 pt-4 pb-4">
