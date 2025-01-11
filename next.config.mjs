@@ -9,6 +9,11 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
+        hostname: 'i.ibb.co',
+        port: '',
+      },
+      {
+        protocol: 'https',
         hostname: 'www.goomer.app',
         port: '',
       },

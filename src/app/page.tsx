@@ -46,13 +46,13 @@ export default async function Home({ searchParams }: SearchParams) {
       {data && (
         <div
           className={clsx(
-            'z-0 flex h-screen w-screen flex-col overflow-hidden bg-gray-200',
+            'z-0 flex h-screen w-screen flex-col overflow-hidden bg-white',
             {
               'items-center justify-center': !data,
             },
           )}
         >
-          <Header title={data && data.restaurant.Menu[0].title} />
+          <Header />
           <Filter sections={data.sections} />
           <DishList sections={data.sections} />
         </div>
