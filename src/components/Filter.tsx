@@ -2,13 +2,13 @@
 
 import { useEffect, useState } from 'react';
 
+import { CardProps } from './Card';
 import { Chip } from './Chip';
-import { DishProps } from './Dish';
 
 export interface SectionProps {
   id: string;
   title: string;
-  Dish: DishProps[];
+  Dish: CardProps[];
 }
 
 interface FilterProps {
@@ -31,7 +31,7 @@ export function Filter({ sections = [] }: FilterProps) {
   }, []);
 
   return (
-    <div className="z-10 flex gap-2 overflow-x-auto px-6 pt-4 pb-4">
+    <div className="z-10 flex gap-2 overflow-x-auto px-6 pt-3 pb-3">
       {sections.length > 0 &&
         sections.map(
           (section) =>
@@ -39,7 +39,7 @@ export function Filter({ sections = [] }: FilterProps) {
               <Chip
                 key={section.id}
                 title={section.title}
-                isSelected={sectionIdSelected === section.id}
+                isActive={sectionIdSelected === section.id}
                 onClick={() => handleClickFilter(section.id)}
               />
             ),

@@ -14,10 +14,10 @@ export function Header() {
         />
       </div>
       <div className="pt-4">
-        <p className="font-nunito-sans text-heading-xs-bold text-title-default">
+        <p className="font-secondary text-sm font-bold text-title-default">
           Olá
         </p>
-        <h3 className="font-nunito-sans text-heading-md text-title-default">
+        <h3 className="font-secondary text-[1.063rem] text-title-default">
           Nosso cardápio foi elaborado com muito carinho pra você, bom apetite!
         </h3>
       </div>

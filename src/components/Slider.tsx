@@ -24,7 +24,7 @@ export function Slider({ images }: SliderProps) {
       spaceBetween={0}
       slidesPerView={1}
       pagination={images && images.length > 1}
-      className="dishes-slider h-80"
+      className="dishes-slider h-72"
     >
       {images?.map((image) => (
         <SwiperSlide key={image.url}>

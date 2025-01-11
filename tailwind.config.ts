@@ -13,110 +13,12 @@ const config: Config = {
     fontFamily: {
       sans: ['var(--font-nunito)'],
       serif: ['var(--font-nunito)'],
-      nunito: ['var(--font-nunito)'],
-      'nunito-sans': ['var(--font-nunito-sans)'],
+      secondary: ['var(--font-nunito-sans)'],
     },
     extend: {
-      fontSize: {
-        'heading-xs-bold': [
-          '0.875rem',
-          {
-            lineHeight: 'normal',
-            letterSpacing: '0',
-            fontWeight: 800,
-          },
-        ],
-        // 'heading-sm': [
-        //   '1.125rem',
-        //   {
-        //     lineHeight: 'normal',
-        //     letterSpacing: '0',
-        //     fontWeight: 'bold',
-        //   },
-        // ],
-        'heading-md': [
-          '1.063rem',
-          {
-            lineHeight: 'normal',
-            letterSpacing: '0',
-            fontWeight: 400,
-          },
-        ],
-        // 'heading-lg': [
-        //   '2rem',
-        //   {
-        //     lineHeight: 'normal',
-        //     letterSpacing: '0',
-        //     fontWeight: 'bold',
-        //   },
-        // ],
-        // 'heading-xg': [
-        //   '2.25rem',
-        //   {
-        //     lineHeight: 'normal',
-        //     letterSpacing: '0',
-        //     fontWeight: 'bold',
-        //   },
-        // ],
-        // 'regular-xs': [
-        //   '0.875rem',
-        //   {
-        //     lineHeight: '120%',
-        //     letterSpacing: '0',
-        //     fontWeight: 400,
-        //   },
-        // ],
-        // 'regular-1xs': [
-        //   '0.875rem',
-        //   {
-        //     lineHeight: 'normal',
-        //     letterSpacing: '0',
-        //     fontWeight: 400,
-        //   },
-        // ],
-        // 'regular-sm': [
-        //   '1.125rem',
-        //   {
-        //     lineHeight: 'normal',
-        //     letterSpacing: '0',
-        //     fontWeight: 400,
-        //   },
-        // ],
-        'medium-xs': [
-          '0.875rem',
-          {
-            lineHeight: 'normal',
-            letterSpacing: '0',
-            fontWeight: 500,
-          },
-        ],
-        // 'medium-sm': [
-        //   '1.125rem',
-        //   {
-        //     lineHeight: 'normal',
-        //     letterSpacing: '0',
-        //     fontWeight: 500,
-        //   },
-        // ],
-        // 'sb-xs': [
-        //   '0.875rem',
-        //   {
-        //     lineHeight: 'normal',
-        //     letterSpacing: '0',
-        //     fontWeight: 600,
-        //   },
-        // ],
-        // 'sb-sm': [
-        //   '1.125rem',
-        //   {
-        //     lineHeight: 'normal',
-        //     letterSpacing: '0',
-        //     fontWeight: 600,
-        //   },
-        // ],
-      },
       boxShadow: {
         lg: '0 0px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+        card: '1px 2px 11.5px 0px rgba(0, 0, 0, 0.11)',
       },
       dropShadow: {
         '2xl': '40px 0px 21px rgb(61 64 82 / 8%)',
@@ -124,10 +26,15 @@ const config: Config = {
       },
       colors: {
         'title-default': '#393939',
+        'text-default': '#ADADB5',
         'brand-primary': '#DE6C53',
         'chip-title-active': '#FFFFFF',
         'chip-title': '#2E2E2E',
         'chip-background': '#F7F7F8',
+        'tag-background': 'rgba(222, 108, 83, 0.2)',
+        'flag-text': '#FFFFFF',
+        'tag-details-background': '#F7F7F8',
+        line: '#DBDBDB',
         black: '#2E2E2E',
         blue: {
           900: '#2D9CDB',
