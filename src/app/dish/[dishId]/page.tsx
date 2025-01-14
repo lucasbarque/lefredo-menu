@@ -1,6 +1,4 @@
-import { headers } from 'next/headers';
 import Image from 'next/image';
-import Link from 'next/link';
 
 import clsx from 'clsx';
 
@@ -9,6 +7,13 @@ import { ButtonBack } from '@/components/ButtonBack';
 import { Chip } from '@/components/Chip';
 import { Line } from '@/components/Line';
 import { Slider } from '@/components/Slider';
+import { Tag } from '@/components/Tag';
+
+import { fetchWrapper } from '@/utils/fetchWrapper';
+
+interface SectionData {
+  description: string;
+}
 
 interface DishDetails {
   id: string;
@@ -21,22 +26,22 @@ interface DishDetails {
       filename: string;
     },
   ];
+  section: SectionData;
+  portion: string | null;
 }
 
 interface Params {
   params: {
-    restaurantId: string;
-    menuId: string;
     dishId: string;
   };
 }
 
 export default async function Page({ params }: Params) {
-  const headersList = headers();
-  const hostname = headersList.get('x-current-path');
+  const data = await fetchWrapper<DishDetails | null>(
+    `/api/dish/${params.dishId}`,
+  );
 
-  const dataAPI = await fetch(`${hostname}/api/dish/${params.dishId}`);
-  const data = (await dataAPI.json()) as DishDetails | null;
+  console.log(data);
 
   const images = data?.medias.map((image) => {
     return {
@@ -47,11 +52,8 @@ export default async function Page({ params }: Params) {
 
   return (
     <div className="z-0">
-      <Link
-        href={`/?menuId=${params.menuId}&restaurantId=${params.restaurantId}`}
-      >
-        <ButtonBack className="absolute left-5 top-8 z-40 flex h-9 w-9 items-center justify-center rounded-lg bg-brand-primary" />
-      </Link>
+      <ButtonBack className="absolute left-5 top-8 z-40 flex h-9 w-9 items-center justify-center rounded-lg bg-brand-primary" />
+
       {images && images.length > 0 && <Slider images={images} />}
       <div
         className={clsx(
@@ -63,11 +65,17 @@ export default async function Page({ params }: Params) {
         )}
       >
         <div
-          className={clsx('pt-4 px-6', {
+          className={clsx('pt-2 px-6', {
             'mt-3': images && images.length == 0,
           })}
         >
-          <h2 className="px-6 font-secondary font-bold text-center text-2xl text-title-default pb-4">
+          {data?.portion && (
+            <div className="flex items-center justify-center">
+              <Tag title={data.portion} />
+            </div>
+          )}
+
+          <h2 className="px-8 font-secondary font-bold text-center text-2xl text-title-default pb-2">
             {data?.title}
           </h2>
           {images && images.length > 0 && <Line />}
@@ -79,32 +87,32 @@ export default async function Page({ params }: Params) {
           </p>
 
           {/* Icons */}
-          <div className="bg-tag-details-background w-full h-9 flex items-center gap-4 justify-center rounded-2xl">
-            {/* <div className="flex gap-1 items-center">
-              <Image src="/cold.svg" width={17} height={19} alt="" />
+          <div className="bg-tag-details-background w-full flex items-center gap-4 justify-center rounded-2xl">
+            <div className="flex gap-1 items-center h-[2.125rem]">
+              <Image src="/icon-snowflake.svg" width={17} height={17} alt="" />
               <span className="text-sm font-medium text-title-default">
                 Bebida Gelada
               </span>
-            </div> */}
+            </div>
 
-            {/* <div className="flex gap-1 items-center">
-              <Image src="/icon-fire.svg" width={15} height={15} alt="" />
+            {/* <div className="flex gap-1 items-center h-[2.125rem]">
+              <Image src="/icon-flame.svg" width={17} height={17} alt="" />
               <span className="text-sm font-medium text-title-default">
                 Bebida Quente
               </span>
             </div> */}
-            {/* <div className="flex gap-1 items-center">
-              <Image src="/icon-leaf.svg" width={15} height={15} alt="" />
+            {/* <div className="flex gap-1 items-center h-[2.125rem]">
+              <Image src="/icon-leaf.svg" width={17} height={17} alt="" />
               <span className="text-sm font-medium text-title-default">
                 Item vegano
               </span>
             </div> */}
-            <div className="flex gap-1 items-center">
-              <Image src="/icon-time.svg" width={28} height={28} alt="" />
+            {/* <div className="flex gap-1 items-center h-[2.125rem]">
+              <Image src="/icon-hour.svg" width={17} height={17} alt="" />
               <span className="text-sm font-medium text-title-default">
                 20 minutos
               </span>
-            </div>
+            </div> */}
           </div>
 
           {/* Additionals */}
@@ -128,17 +136,16 @@ export default async function Page({ params }: Params) {
           </div>
 
           {/* Observations */}
-          <div>
-            <h2 className="font-secondary text-title-default font-medium">
-              Observações
-            </h2>
-            <p className="text-sm text-text-default">
-              Nosso estoque é renovado diariamente, portanto algumas opções
-              podem se esgotar ao longo do dia. Favor verificar a
-              disponibilidade do produto com nossos atendentes no momento do
-              pedido!
-            </p>
-          </div>
+          {data?.section.description && (
+            <div>
+              <h2 className="font-secondary text-title-default font-medium">
+                Observações
+              </h2>
+              <p className="text-sm text-text-default">
+                {data.section.description}
+              </p>
+            </div>
+          )}
         </div>
         <div className="px-6 text-center pb-4">
           <Line />

@@ -16,6 +16,15 @@ const config: Config = {
       secondary: ['var(--font-nunito-sans)'],
     },
     extend: {
+      keyframes: {
+        logo: {
+          '0%, 100%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(0.9)' },
+        },
+      },
+      animation: {
+        logo: 'logo 3s ease-in-out infinite',
+      },
       boxShadow: {
         lg: '0 0px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
         card: '1px 2px 11.5px 0px rgba(0, 0, 0, 0.11)',
