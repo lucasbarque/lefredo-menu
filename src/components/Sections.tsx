@@ -14,9 +14,10 @@ export interface SectionProps {
 
 interface SectionComponentProps {
   menuId: string | undefined;
+  sectionId: string | undefined;
 }
 
-export async function Sections({ menuId }: SectionComponentProps) {
+export async function Sections({ menuId, sectionId }: SectionComponentProps) {
   if (!menuId) {
     notFound();
   }
@@ -28,18 +29,24 @@ export async function Sections({ menuId }: SectionComponentProps) {
     notFound();
   }
 
+  const currentSection = sectionId ? sectionId : sections[0].id;
+
   return (
     <>
       {sections.length > 0 && (
         <div className="z-10 flex gap-2 overflow-x-auto px-6 pt-3 pb-3">
           {sections.map((section) => (
-            <Chip key={section.id} title={section.title} />
+            <Chip
+              key={section.id}
+              id={section.id}
+              title={section.title}
+              isActive={currentSection === section.id}
+            />
           ))}
         </div>
       )}
-
       <Suspense fallback={<LoadingDishes />}>
-        <DishesList sectionId={sections[0].id} />
+        <DishesList sectionId={!sectionId ? sections[0].id : sectionId} />
       </Suspense>
     </>
   );

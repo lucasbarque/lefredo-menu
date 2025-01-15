@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { IconFlame, IconLeaf, IconSnowflake } from '@tabler/icons-react';
 
 interface DishSpecs {
   DishSpecs: {
@@ -29,38 +29,29 @@ export function Specs({ specs }: SpecProps) {
 
         if (spec.DishSpecs.key === 'cold') {
           return (
-            <Image
+            <IconSnowflake
+              className="mr-1 text-text-default"
               key={spec.DishSpecs.id}
-              src="/icon-snowflake.svg"
-              width={16}
-              height={16}
-              alt={spec.DishSpecs.title}
-              className="mr-1"
+              size={16}
             />
           );
         }
 
         if (spec.DishSpecs.key === 'hot') {
           return (
-            <Image
+            <IconFlame
+              className="mr-1 text-text-default"
               key={spec.DishSpecs.id}
-              src="/icon-flame.svg"
-              width={17}
-              height={17}
-              className="mr-1"
-              alt={spec.DishSpecs.title}
+              size={17}
             />
           );
         }
         if (spec.DishSpecs.key === 'vegan') {
           return (
-            <Image
+            <IconLeaf
+              className="mr-1 text-text-default"
               key={spec.DishSpecs.id}
-              src="/icon-leaf.svg"
-              width={15}
-              height={15}
-              className="mr-1"
-              alt={spec.DishSpecs.title}
+              size={17}
             />
           );
         }

@@ -9,6 +9,7 @@ import { Sections } from '@/components/Sections';
 interface SearchParams {
   searchParams: {
     menuId?: string;
+    sectionId?: string;
   };
 }
 
@@ -22,7 +23,10 @@ export default async function Home({ searchParams }: SearchParams) {
       <Header />
 
       <Suspense fallback={<LoadingSections />}>
-        <Sections menuId={searchParams.menuId} />
+        <Sections
+          menuId={searchParams.menuId}
+          sectionId={searchParams.sectionId}
+        />
       </Suspense>
     </div>
   );

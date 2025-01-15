@@ -1,12 +1,11 @@
-import Image from 'next/image';
-
 import clsx from 'clsx';
 
 import { AdditionalsList } from '@/components/AdditionalsList';
 import { ButtonBack } from '@/components/ButtonBack';
-import { Chip } from '@/components/Chip';
+import { ChipDetails } from '@/components/ChipDetails';
 import { Line } from '@/components/Line';
 import { Slider } from '@/components/Slider';
+import { SpecsDetails } from '@/components/SpecsDetails';
 import { Tag } from '@/components/Tag';
 
 import { fetchWrapper } from '@/utils/fetchWrapper';
@@ -28,6 +27,8 @@ interface DishDetails {
   ];
   section: SectionData;
   portion: string | null;
+  prepTime: number | null;
+  dishSpecs: [];
 }
 
 interface Params {
@@ -87,7 +88,7 @@ export default async function Page({ params }: Params) {
           </p>
 
           {/* Icons */}
-          <div className="bg-tag-details-background w-full flex items-center gap-4 justify-center rounded-2xl">
+          {/* <div className="bg-tag-details-background w-full flex items-center gap-4 justify-center rounded-2xl">
             <div className="flex gap-1 items-center h-[2.125rem]">
               <Image src="/icon-snowflake.svg" width={17} height={17} alt="" />
               <span className="text-sm font-medium text-title-default">
@@ -101,19 +102,22 @@ export default async function Page({ params }: Params) {
                 Bebida Quente
               </span>
             </div> */}
-            {/* <div className="flex gap-1 items-center h-[2.125rem]">
+          {/* <div className="flex gap-1 items-center h-[2.125rem]">
               <Image src="/icon-leaf.svg" width={17} height={17} alt="" />
               <span className="text-sm font-medium text-title-default">
                 Item vegano
               </span>
             </div> */}
-            {/* <div className="flex gap-1 items-center h-[2.125rem]">
+          {/* <div className="flex gap-1 items-center h-[2.125rem]">
               <Image src="/icon-hour.svg" width={17} height={17} alt="" />
               <span className="text-sm font-medium text-title-default">
                 20 minutos
               </span>
             </div> */}
-          </div>
+          {/* </div>  */}
+          {data?.dishSpecs && (
+            <SpecsDetails specs={data.dishSpecs} prepTime={data.prepTime} />
+          )}
 
           {/* Additionals */}
           <div>
@@ -129,9 +133,9 @@ export default async function Page({ params }: Params) {
               Sabores
             </h2>
             <div className="flex gap-2 flex-wrap">
-              <Chip title="Frango" isActive />
-              <Chip title="Palmito" />
-              <Chip title="Frango com Palmito" />
+              <ChipDetails title="Frango" isActive />
+              <ChipDetails title="Palmito" />
+              <ChipDetails title="Frango com Palmito" />
             </div>
           </div>
 
