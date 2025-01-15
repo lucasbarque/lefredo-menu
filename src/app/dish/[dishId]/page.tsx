@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { notFound } from 'next/navigation';
 
 import clsx from 'clsx';
@@ -11,35 +13,9 @@ import { Slider } from '@/components/Slider';
 import { SpecsDetails } from '@/components/SpecsDetails';
 import { Tag } from '@/components/Tag';
 
+import { DishDetails } from './types';
 import { DishProvider } from '@/contexts/DishContext';
 import { fetchWrapper } from '@/utils/fetchWrapper';
-
-interface SectionData {
-  description: string;
-}
-interface DishExtras {
-  id: string;
-  title: string;
-  price: number;
-}
-
-interface DishDetails {
-  id: string;
-  title: string;
-  description: string;
-  price: number;
-  medias: [
-    {
-      id: string;
-      filename: string;
-    },
-  ];
-  section: SectionData;
-  portion: string | null;
-  prepTime: number | null;
-  dishSpecs: [];
-  dishExtras: DishExtras[] | [];
-}
 
 interface Params {
   params: {
