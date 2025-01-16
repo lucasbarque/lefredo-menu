@@ -1,17 +1,10 @@
+import { DishSpecs } from '@/app/dish/[dishId]/types';
 import {
   IconClockHour4,
   IconFlame,
   IconLeaf,
   IconSnowflake,
 } from '@tabler/icons-react';
-
-interface DishSpecs {
-  DishSpecs: {
-    id: string;
-    title: string;
-    key: 'cold' | 'hot' | 'vegan';
-  };
-}
 
 interface SpecProps {
   specs: DishSpecs[];

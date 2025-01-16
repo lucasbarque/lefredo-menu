@@ -1,15 +1,10 @@
 'use client';
 
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 
+import { DishExtras } from '@/app/dish/[dishId]/types';
 import { DishContext } from '@/contexts/DishContext';
 import * as RadioGroup from '@radix-ui/react-radio-group';
-
-interface DishExtras {
-  id: string;
-  title: string;
-  price: number;
-}
 
 interface AdditionalsListProps {
   currentPriceValue: number;
@@ -25,10 +20,6 @@ export function AdditionalsList({
   function handleChange(value: string) {
     changePrice(Number(value) + currentPriceValue);
   }
-
-  useEffect(() => {
-    changePrice(currentPriceValue);
-  }, []);
 
   return (
     <form>

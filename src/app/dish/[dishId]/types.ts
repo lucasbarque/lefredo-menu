@@ -2,10 +2,18 @@ interface SectionData {
   description: string;
 }
 
-interface DishExtras {
+export interface DishExtras {
   id: string;
   title: string;
   price: number;
+}
+
+export interface DishSpecs {
+  DishSpecs: {
+    id: string;
+    title: string;
+    key: 'cold' | 'hot' | 'vegan' | 'highlighted';
+  };
 }
 
 export interface DishDetails {
@@ -22,6 +30,6 @@ export interface DishDetails {
   section: SectionData;
   portion: string | null;
   prepTime: number | null;
-  dishSpecs: [];
+  dishSpecs: DishSpecs[] | [];
   dishExtras: DishExtras[] | [];
 }

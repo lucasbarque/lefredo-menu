@@ -1,12 +1,20 @@
 'use client';
 
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 import { Line } from './Line';
 import { DishContext } from '@/contexts/DishContext';
 
-export function PriceDetails() {
-  const { price } = useContext(DishContext);
+interface PriceDetailsProps {
+  currentPriceValue: number;
+}
+
+export function PriceDetails({ currentPriceValue }: PriceDetailsProps) {
+  const { price, changePrice } = useContext(DishContext);
+
+  useEffect(() => {
+    changePrice(currentPriceValue);
+  }, []);
 
   return (
     <div className="px-6 text-center pb-4">

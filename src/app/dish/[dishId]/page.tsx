@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { notFound } from 'next/navigation';
 
 import clsx from 'clsx';
@@ -39,18 +37,22 @@ export default async function Page({ params }: Params) {
     };
   });
 
+  const hasHighlighted = data.dishSpecs.find(
+    (spec) => spec.DishSpecs.key === 'highlighted',
+  );
+
   return (
     <DishProvider>
       <div className="z-0">
         <ButtonBack className="absolute left-5 top-8 z-40 flex h-9 w-9 items-center justify-center rounded-lg bg-brand-primary" />
 
-        {images && images.length > 0 && <Slider images={images} />}
+        {images?.length > 0 && <Slider images={images} />}
         <div
           className={clsx(
             'absolute flex flex-col left-0 right-0 bottom-0 z-10  rounded-t-2xl bg-white',
             {
-              'h-[67vh]': images && images.length > 0,
-              'h-[100vh]': images && images.length == 0,
+              'h-[67vh]': images?.length > 0,
+              'h-[100vh]': images?.length == 0,
             },
           )}
         >
@@ -68,7 +70,14 @@ export default async function Page({ params }: Params) {
             <h2 className="px-8 font-secondary font-bold text-center text-2xl text-title-default pb-2">
               {data.title}
             </h2>
-            {images && images.length > 0 && <Line />}
+
+            {images?.length === 0 && hasHighlighted && (
+              <div className="bg-brand-primary text-chip-title-active text-lg w-fit h-8 flex items-center justify-center px-4 rounded-md mx-auto">
+                {hasHighlighted.DishSpecs.title}
+              </div>
+            )}
+
+            {images?.length > 0 && <Line />}
           </div>
           <div className=" flex-1 flex gap-4 flex-col overflow-y-auto px-6 pt-4 pb-4">
             {/* Description */}
@@ -117,7 +126,7 @@ export default async function Page({ params }: Params) {
               </div>
             )}
           </div>
-          <PriceDetails />
+          <PriceDetails currentPriceValue={data.price} />
         </div>
       </div>
     </DishProvider>
