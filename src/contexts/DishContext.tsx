@@ -1,26 +1,49 @@
 'use client';
 
-import { ReactNode, createContext, useState } from 'react';
+import {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  createContext,
+  useState,
+} from 'react';
 
 interface DishContextProps {
-  price: number;
+  dish: {
+    title: string;
+    price: number;
+  };
   changePrice: (newPrice: number) => void;
+  changeTitle: (newTitle: string) => void;
+  currentFlavorId: string | null;
+  setCurrentFlavorId: Dispatch<SetStateAction<string | null>>;
 }
 
 const DishContext = createContext<DishContextProps>({} as DishContextProps);
 
 const DishProvider = ({ children }: { children: ReactNode }) => {
-  const [price, setPrice] = useState(0);
+  const [dish, setDish] = useState({
+    title: '',
+    price: 0,
+  });
+  const [currentFlavorId, setCurrentFlavorId] = useState<string | null>(null);
 
   function changePrice(newPrice: number) {
-    setPrice(newPrice);
+    setDish((oldState) => ({ ...oldState, price: newPrice }));
+  }
+
+  function changeTitle(newTitle: string) {
+    setDish((oldState) => ({ ...oldState, title: newTitle }));
   }
 
   return (
     <DishContext.Provider
       value={{
-        price,
+        dish,
         changePrice,
+        changeTitle,
+        currentFlavorId,
+        setCurrentFlavorId,
       }}
     >
       {children}

@@ -4,6 +4,7 @@ import { Nunito, Nunito_Sans } from 'next/font/google';
 
 import './globals.css';
 import './styles/slider.css';
+import AOSProvider from '@/providers/AOSProvider';
 
 export const metadata: Metadata = {
   title: 'Le Fredo | Menu',
@@ -30,7 +31,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className={`${nunito.variable} ${nunito_sans.variable}`}>
-      <body>{children}</body>
+      <body>
+        <AOSProvider>{children}</AOSProvider>
+      </body>
     </html>
   );
 }

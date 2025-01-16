@@ -29,7 +29,7 @@ export function Chip({ id, title, isActive = false, ...rest }: ChipProps) {
     <button
       onClick={handleClick}
       className={clsx(
-        'h-[2.063rem] whitespace-nowrap rounded-2xl border px-4 text-sm font-medium transition-colors',
+        'h-[2.063rem]  whitespace-nowrap rounded-2xl border px-4 text-sm font-medium transition-colors',
         {
           'bg-brand-primary text-chip-title-active ': isActive,
           'bg-chip-background text-chip-title ': !isActive,

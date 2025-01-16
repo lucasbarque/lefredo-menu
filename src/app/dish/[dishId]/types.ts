@@ -8,6 +8,13 @@ export interface DishExtras {
   price: number;
 }
 
+export interface DishFlavors {
+  id: string;
+  title: string;
+  label: string;
+  description: string | null;
+}
+
 export interface DishSpecs {
   DishSpecs: {
     id: string;
@@ -32,4 +39,5 @@ export interface DishDetails {
   prepTime: number | null;
   dishSpecs: DishSpecs[] | [];
   dishExtras: DishExtras[] | [];
+  dishFlavors: DishFlavors[] | [];
 }

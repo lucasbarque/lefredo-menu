@@ -5,11 +5,6 @@ interface DishesListProps {
   sectionId: string;
 }
 
-interface BaseDish {
-  id: string;
-  title: string;
-}
-
 interface DishProps {
   id: string;
   title: string;
@@ -17,7 +12,6 @@ interface DishProps {
   price: number;
   portion: string | null;
   prepTime: string | null;
-  baseDish: BaseDish | null;
   dishSpecs: [];
   media: [];
 }
