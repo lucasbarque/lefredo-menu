@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: 'Le Fredo | Menu',
 };
 
-export const nunito = Nunito({
+const nunito = Nunito({
   weight: ['400', '500'],
   subsets: ['latin'],
   display: 'swap',
