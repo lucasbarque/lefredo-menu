@@ -23,17 +23,18 @@ export interface DishSpecs {
   };
 }
 
+export interface DishMedias {
+  id: string;
+  filename: string;
+  referenceId: string;
+}
+
 export interface DishDetails {
   id: string;
   title: string;
   description: string;
   price: number;
-  medias: [
-    {
-      id: string;
-      filename: string;
-    },
-  ];
+  medias: DishMedias[] | [];
   section: SectionData;
   portion: string | null;
   prepTime: number | null;

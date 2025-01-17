@@ -13,12 +13,7 @@ interface SpecProps {
 
 export function SpecsDetails({ specs, prepTime }: SpecProps) {
   return (
-    <div
-      data-aos="fade-down"
-      data-aos-delay="300"
-      data-aos-anchor-placement="top-center"
-      className="bg-tag-details-background w-full flex items-center gap-4 justify-center rounded-2xl"
-    >
+    <div className="bg-tag-details-background w-full flex items-center gap-4 justify-center rounded-2xl">
       {prepTime && (
         <div className="flex gap-1 items-center h-[2.125rem]">
           <IconClockHour4 className="text-text-default" size={16} />

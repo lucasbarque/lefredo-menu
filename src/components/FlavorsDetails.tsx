@@ -1,6 +1,6 @@
 'use client';
 
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 
 import { ChipDetails } from './ChipDetails';
 import { DishDetails, DishFlavors } from '@/app/dish/[dishId]/types';
@@ -8,24 +8,23 @@ import { DishDetails, DishFlavors } from '@/app/dish/[dishId]/types';
 interface FlavorsDetailsProps {
   dishFlavors: DishFlavors[];
   changeDish: Dispatch<SetStateAction<DishDetails>>;
+  currentFlavorId: string;
+  setCurrentFlavorId: Dispatch<SetStateAction<string>>;
 }
 
 export function FlavorsDetails({
   dishFlavors,
   changeDish,
+  currentFlavorId,
+  setCurrentFlavorId,
 }: FlavorsDetailsProps) {
-  const [currentFlavorId, setCurrentFlavorId] = useState(dishFlavors[0].id);
-
   useEffect(() => {
     const flavor = dishFlavors.find((flavor) => flavor.id === currentFlavorId);
-
     changeDish((state) => ({
       ...state,
       title: flavor?.title || state.title,
       description: flavor?.description || state.description,
     }));
-
-    console.log({ currentFlavorId, flavor });
   }, [currentFlavorId, changeDish, dishFlavors]);
 
   return (

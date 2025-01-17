@@ -9,7 +9,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'www.alimentados.com.br',
+        hostname: 'www.cdn-parachute.com.br',
         port: '',
       },
     ],

@@ -15,7 +15,7 @@ import { Slider } from '@/components/Slider';
 import { SpecsDetails } from '@/components/SpecsDetails';
 import { Tag } from '@/components/Tag';
 
-import { DishDetails, DishSpecs } from './types';
+import { DishDetails, DishMedias, DishSpecs } from './types';
 import { fetchWrapper } from '@/utils/fetchWrapper';
 
 interface Params {
@@ -28,7 +28,9 @@ export default function Page({ params }: Params) {
   const [dish, setDish] = useState<DishDetails>({} as DishDetails);
   const [isLoading, setIsLoading] = useState(true);
   const [images, setImages] = useState<{ title: string; url: string }[]>([]);
+  const [imagesFlavors, setImagesFlavors] = useState<DishMedias[]>([]);
   const [hasHighlighted, setHasHighlighted] = useState<DishSpecs>();
+  const [currentFlavorId, setCurrentFlavorId] = useState('');
 
   useEffect(() => {
     (async () => {
@@ -38,17 +40,19 @@ export default function Page({ params }: Params) {
       if (!dataAPI) {
         notFound();
       }
-      let images: { title: string; url: string }[] = [];
 
-      if (dataAPI.medias.length > 0) {
-        images = dataAPI.medias.map((image) => {
-          return {
-            title: image.id,
-            url: image.filename,
-          };
-        });
+      if (dataAPI.medias.length > 0 && dataAPI.dishFlavors.length === 0) {
+        setImages(
+          dataAPI.medias.map((image) => {
+            return {
+              title: image.id,
+              url: image.filename,
+            };
+          }),
+        );
+      } else if (dataAPI.medias.length > 0 && dataAPI.dishFlavors.length > 0) {
+        setImagesFlavors(dataAPI.medias);
       }
-      setImages(images);
 
       const hasHighlighted = dataAPI?.dishSpecs.find(
         (spec) => spec.DishSpecs.key === 'highlighted',
@@ -56,14 +60,46 @@ export default function Page({ params }: Params) {
       setHasHighlighted(hasHighlighted);
       setDish(dataAPI);
       setIsLoading(false);
+      if (dataAPI.dishFlavors.length > 0) {
+        setCurrentFlavorId(dataAPI.dishFlavors[0].id);
+      }
     })();
   }, []);
+
+  useEffect(() => {
+    if (!currentFlavorId) return;
+
+    const mediasFlavors = imagesFlavors?.filter(
+      (flavor) => flavor.referenceId === currentFlavorId,
+    );
+
+    if (mediasFlavors.length === 0) return;
+
+    const mediasFlavorsUpdated = mediasFlavors.map((image) => {
+      return {
+        title: image.id,
+        url: image.filename,
+      };
+    });
+    setImages(mediasFlavorsUpdated);
+  }, [currentFlavorId]);
 
   return (
     <div className="z-0">
       <ButtonBack className="absolute left-5 top-8 z-40 flex h-9 w-9 items-center justify-center rounded-lg bg-brand-primary" />
 
       {images?.length > 0 && <Slider images={images} />}
+
+      {hasHighlighted && (
+        <div
+          data-aos="fade-left"
+          data-aos-delay="200"
+          className="bg-brand-primary z-40 absolute top-8 right-0 text-chip-title-active text-lg w-fit h-8 flex items-center justify-center px-4 rounded-tl-md rounded-bl-md mx-auto"
+        >
+          {hasHighlighted.DishSpecs.title}
+        </div>
+      )}
+
       <div
         className={clsx(
           'absolute flex flex-col left-0 right-0 bottom-0 z-10  rounded-t-2xl bg-white',
@@ -120,7 +156,7 @@ export default function Page({ params }: Params) {
 
           {images?.length > 0 && <Line />}
         </div>
-        <div className=" flex-1 flex gap-4 flex-col overflow-y-auto px-6 pt-4 pb-4">
+        <div className="flex-1 flex gap-4 flex-col overflow-y-auto px-6 pt-4 pb-4">
           {/* Description */}
           <Loading
             isLoading={isLoading}
@@ -173,6 +209,8 @@ export default function Page({ params }: Params) {
               <FlavorsDetails
                 dishFlavors={dish.dishFlavors}
                 changeDish={setDish}
+                currentFlavorId={currentFlavorId}
+                setCurrentFlavorId={setCurrentFlavorId}
               />
             )}
           </Loading>
@@ -240,7 +278,7 @@ export default function Page({ params }: Params) {
             </div>
           }
         >
-          {dish?.section?.description && (
+          {dish?.price && (
             <div className="px-6 text-center pb-4">
               <Line />
               <p className="text-sm pt-4 font-bold title-default">Valor</p>
