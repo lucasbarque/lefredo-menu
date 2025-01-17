@@ -6,10 +6,9 @@
 }
 
 .dishes-slider .swiper-pagination-bullet-active {
-  background-color: #f8b602;
-  border: 1px solid white;
+  background-color: #de6c53;
 }
 
 .dishes-slider .swiper-pagination {
-  bottom: 3rem;
+  bottom: 1.3rem !important;
 }

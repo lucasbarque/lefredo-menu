@@ -1,24 +1,25 @@
 import Image from 'next/image';
 
-interface HeaderParams {
-  title: string | undefined;
-}
-
-export function Header({ title }: HeaderParams) {
+export function Header() {
   return (
-    <div className="relative px-8 pt-8">
-      <Image
-        src="/bg-white.png"
-        alt=""
-        width={834}
-        height={536}
-        priority
-        className="absolute top-0 right-0 z-[1] w-4/5 opacity-10"
-      />
-      <div className="align-center flex">
-        <h2 className="flex-1 text-3xl font-bold leading-[130%] text-black transition-colors">
-          {title}
-        </h2>
+    <div className="pt-6 px-6">
+      <div className="flex justify-between items-center">
+        <Image src="/logo-niura.svg" alt="" width={104} height={46} priority />
+        <Image
+          src="/icon-location.svg"
+          alt=""
+          width={44}
+          height={44}
+          priority
+        />
+      </div>
+      <div className="pt-4">
+        <p className="font-secondary text-sm font-bold text-title-default">
+          Olá
+        </p>
+        <h3 className="font-secondary text-[1.063rem] text-title-default">
+          Nosso cardápio foi elaborado com muito carinho pra você, bom apetite!
+        </h3>
       </div>
     </div>
   );

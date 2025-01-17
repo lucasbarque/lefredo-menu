@@ -1,18 +1,20 @@
 import type { Metadata } from 'next';
 
-import { Poppins } from 'next/font/google';
+import { Nunito } from 'next/font/google';
 
 import './globals.css';
 import './styles/slider.css';
+import AOSProvider from '@/providers/AOSProvider';
 
 export const metadata: Metadata = {
   title: 'Le Fredo | Menu',
 };
 
-const poppins = Poppins({
-  weight: ['400', '700'],
+export const nunito = Nunito({
+  weight: ['400', '500'],
   subsets: ['latin'],
   display: 'swap',
+  variable: '--font-nunito',
 });
 
 export default function RootLayout({
@@ -21,8 +23,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={poppins.className}>
-      <body>{children}</body>
+    <html lang="pt-BR" className={nunito.variable}>
+      <body>
+        <AOSProvider>{children}</AOSProvider>
+      </body>
     </html>
   );
 }
