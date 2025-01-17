@@ -64,6 +64,7 @@ export default function Page({ params }: Params) {
         setCurrentFlavorId(dataAPI.dishFlavors[0].id);
       }
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -82,6 +83,7 @@ export default function Page({ params }: Params) {
       };
     });
     setImages(mediasFlavorsUpdated);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentFlavorId]);
 
   return (
