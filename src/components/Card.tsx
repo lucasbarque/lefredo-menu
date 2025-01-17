@@ -40,7 +40,7 @@ export function Card({ id, title, price, portion, medias, specs }: CardProps) {
             alt={medias[0].title}
             width={100}
             height={100}
-            className="h-[6.25rem] w-[6.25rem] rounded-[0.875rem] object-cover"
+            className="h-[6.25rem] w-[6.25rem] shrink-0 rounded-[0.875rem] object-cover"
           />
         )}
         <div className="flex flex-col justify-center">

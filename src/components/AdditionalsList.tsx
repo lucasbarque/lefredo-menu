@@ -1,24 +1,26 @@
 'use client';
 
-import { useContext } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
-import { DishExtras } from '@/app/dish/[dishId]/types';
-import { DishContext } from '@/contexts/DishContext';
+import { DishDetails, DishExtras } from '@/app/dish/[dishId]/types';
 import * as RadioGroup from '@radix-ui/react-radio-group';
 
 interface AdditionalsListProps {
   currentPriceValue: number;
   dishExtras: DishExtras[];
+  changeDish: Dispatch<SetStateAction<DishDetails>>;
 }
 
 export function AdditionalsList({
   currentPriceValue,
   dishExtras,
+  changeDish,
 }: AdditionalsListProps) {
-  const { changePrice } = useContext(DishContext);
-
   function handleChange(value: string) {
-    changePrice(Number(value) + currentPriceValue);
+    changeDish((state) => ({
+      ...state,
+      price: Number(value) + currentPriceValue,
+    }));
   }
 
   return (
@@ -29,18 +31,22 @@ export function AdditionalsList({
         aria-label="View density"
         onValueChange={(value) => handleChange(value)}
       >
-        {dishExtras.map((extra) => (
+        {dishExtras.map((extra, index) => (
           <div className="flex items-center" key={extra.id}>
             <RadioGroup.Item
               className="size-[0.813rem] data-[state=checked]:border-brand-primary cursor-default rounded-full bg-white border border-text-default outline-none hover:bg-violet3 focus:border-brand-primary"
               value={String(extra.price)}
               id={String(extra.id)}
+              data-aos="fade-up"
+              data-aos-delay={index + 1 + '00'}
             >
               <RadioGroup.Indicator className="relative flex size-full items-center justify-center after:block after:size-[7px] after:rounded-full after:bg-brand-primary" />
             </RadioGroup.Item>
             <label
               className="pl-1 text-sm font-medium leading-none text-text-default"
               htmlFor={String(extra.id)}
+              data-aos="fade-up"
+              data-aos-delay={index + 1 + '00'}
             >
               {extra.title} - R$
               {' ' +
@@ -57,12 +63,16 @@ export function AdditionalsList({
             className="size-[0.813rem] cursor-default rounded-full data-[state=checked]:border-brand-primary  bg-white border border-text-default outline-none hover:bg-violet3 focus:border-brand-primary"
             value="0"
             id="r3"
+            data-aos="fade-up"
+            data-aos-delay={dishExtras.length + 1 + '00'}
           >
             <RadioGroup.Indicator className="relative flex size-full items-center justify-center after:block after:size-[7px] after:rounded-full after:bg-brand-primary" />
           </RadioGroup.Item>
           <label
             className="pl-1 text-sm font-medium leading-none text-text-default"
             htmlFor="r3"
+            data-aos="fade-up"
+            data-aos-delay={dishExtras.length + 1 + '00'}
           >
             Nenhum
           </label>

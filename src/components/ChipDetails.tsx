@@ -10,13 +10,13 @@ interface ChipProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 export function ChipDetails({ title, isActive = false, ...rest }: ChipProps) {
   return (
     <button
+      {...rest}
       className={clsx(
         'h-[2.063rem] whitespace-nowrap rounded-2xl border px-4 text-sm font-medium transition-colors',
         {
           'bg-brand-primary text-chip-title-active ': isActive,
           'bg-chip-background text-chip-title ': !isActive,
         },
-        { ...rest },
       )}
     >
       {title}

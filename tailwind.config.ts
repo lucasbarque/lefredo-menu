@@ -13,7 +13,6 @@ const config: Config = {
     fontFamily: {
       sans: ['var(--font-nunito)'],
       serif: ['var(--font-nunito)'],
-      secondary: ['var(--font-nunito-sans)'],
     },
     extend: {
       keyframes: {
