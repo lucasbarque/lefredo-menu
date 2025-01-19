@@ -32,7 +32,7 @@ export function FlavorsDetails({
       <h2 className="font-secondary text-title-default font-medium">Sabores</h2>
       <div className="flex gap-2 flex-wrap">
         {dishFlavors.map((flavor) => (
-          <div key={flavor.id} data-aos="zoom-out" data-aos-delay="200">
+          <div key={flavor.id}>
             <ChipDetails
               title={flavor.label}
               isActive={currentFlavorId === flavor.id}
