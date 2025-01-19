@@ -104,9 +104,9 @@ export default function Page({ params }: Params) {
 
       <div
         className={clsx(
-          'absolute flex flex-col left-0 right-0 bottom-0 z-10  rounded-t-2xl bg-white',
+          '-mt-4 flex flex-col left-0 right-0 bottom-0 z-[999]  rounded-t-2xl bg-white',
           {
-            'h-[67vh]': images?.length > 0,
+            '': images?.length > 0,
             'h-[100vh]': images?.length == 0,
           },
         )}

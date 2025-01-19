@@ -26,11 +26,9 @@ export async function Sections({ menuId, sectionId }: SectionComponentProps) {
     `/api/sections?menuId=${menuId}`,
   );
 
-  console.log({ sections });
-
-  // if (!sections) {
-  //   notFound();
-  // }
+  if (!sections) {
+    notFound();
+  }
 
   const currentSection = sectionId ? sectionId : sections[0].id;
 
