@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  @apply h-full;
+}
+
 body {
-  @apply antialiased;
+  @apply h-full antialiased;
 }
