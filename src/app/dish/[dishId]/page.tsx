@@ -93,11 +93,7 @@ export default function Page({ params }: Params) {
       {images?.length > 0 && <Slider images={images} />}
 
       {hasHighlighted && (
-        <div
-          data-aos="fade-left"
-          data-aos-delay="200"
-          className="bg-brand-primary z-40 absolute top-8 right-0 text-chip-title-active text-lg w-fit h-8 flex items-center justify-center px-4 rounded-tl-md rounded-bl-md mx-auto"
-        >
+        <div className="bg-brand-primary z-40 absolute top-8 right-0 text-chip-title-active text-lg w-fit h-8 flex items-center justify-center px-4 rounded-tl-md rounded-bl-md mx-auto">
           {hasHighlighted.DishSpecs.title}
         </div>
       )}
@@ -120,8 +116,6 @@ export default function Page({ params }: Params) {
               }
             >
               <h2
-                data-aos="zoom-in"
-                data-aos-delay="200"
                 className={clsx(
                   'font-secondary font-bold text-2xl text-title-default',
                   {
@@ -142,7 +136,7 @@ export default function Page({ params }: Params) {
                   }
                 >
                   {dish.portion && (
-                    <div data-aos="fade-down" data-aos-delay="150">
+                    <div>
                       <Tag title={dish.portion} />
                     </div>
                   )}
@@ -161,11 +155,7 @@ export default function Page({ params }: Params) {
           </div>
 
           {images?.length === 0 && hasHighlighted && (
-            <div
-              data-aos="zoom-out"
-              data-aos-delay="200"
-              className="bg-brand-primary text-chip-title-active text-lg w-fit h-8 flex items-center justify-center px-4 rounded-md mx-auto"
-            >
+            <div className="bg-brand-primary text-chip-title-active text-lg w-fit h-8 flex items-center justify-center px-4 rounded-md mx-auto">
               {hasHighlighted.DishSpecs.title}
             </div>
           )}
