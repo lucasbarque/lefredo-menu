@@ -29,13 +29,7 @@ export function FlavorsDetails({
 
   return (
     <div>
-      <h2
-        data-aos="zoom-in"
-        data-aos-delay="150"
-        className="font-secondary text-title-default font-medium"
-      >
-        Sabores
-      </h2>
+      <h2 className="font-secondary text-title-default font-medium">Sabores</h2>
       <div className="flex gap-2 flex-wrap">
         {dishFlavors.map((flavor) => (
           <div key={flavor.id} data-aos="zoom-out" data-aos-delay="200">

@@ -87,7 +87,7 @@ export default function Page({ params }: Params) {
   }, [currentFlavorId]);
 
   return (
-    <div className="z-0">
+    <div className="z-0 h-full">
       <ButtonBack className="absolute left-5 top-8 z-40 flex h-9 w-9 items-center justify-center rounded-lg bg-brand-primary" />
 
       {images?.length > 0 && <Slider images={images} />}
@@ -104,9 +104,10 @@ export default function Page({ params }: Params) {
 
       <div
         className={clsx(
-          ' flex flex-col left-0 right-0 bottom-0 z-[999]  rounded-t-2xl bg-white',
+          'flex flex-col  bottom-0 z-[999] rounded-t-2xl bg-white',
           {
             '-mt-4': images?.length > 0,
+            'h-[100vh]': images?.length == 0,
           },
         )}
       >
@@ -170,13 +171,7 @@ export default function Page({ params }: Params) {
             }
           >
             {dish?.description && (
-              <p
-                data-aos="zoom-out"
-                data-aos-delay="200"
-                className="text-text-default"
-              >
-                {dish.description}
-              </p>
+              <p className="text-text-default">{dish.description}</p>
             )}
           </Loading>
 
@@ -220,11 +215,7 @@ export default function Page({ params }: Params) {
           <Loading isLoading={isLoading} fallback={<></>}>
             {dish?.dishExtras?.length > 0 && (
               <div>
-                <h2
-                  data-aos="zoom-out"
-                  data-aos-delay="200"
-                  className="font-secondary text-title-default font-medium pb-1"
-                >
+                <h2 className="font-secondary text-title-default font-medium pb-1">
                   Adicionais
                 </h2>
                 <AdditionalsList
@@ -251,11 +242,7 @@ export default function Page({ params }: Params) {
           >
             {dish?.section?.description && (
               <div>
-                <h2
-                  data-aos="fade-up"
-                  data-aos-delay="150"
-                  className="font-secondary text-title-default font-medium"
-                >
+                <h2 className="font-secondary text-title-default font-medium">
                   Observações
                 </h2>
                 <p
