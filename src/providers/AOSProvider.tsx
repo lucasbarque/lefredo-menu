@@ -12,7 +12,9 @@ export default function AOSProvider({
   children: React.ReactNode;
 }) {
   useEffect(() => {
-    AOS.init();
+    AOS.init({
+      once: true,
+    });
   }, []);
 
   return <>{children}</>;
