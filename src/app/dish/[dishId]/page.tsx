@@ -87,7 +87,7 @@ export default function Page({ params }: Params) {
   }, [currentFlavorId]);
 
   return (
-    <div className="z-0 h-full">
+    <div className="z-0">
       <ButtonBack className="absolute left-5 top-8 z-40 flex h-9 w-9 items-center justify-center rounded-lg bg-brand-primary" />
 
       {images?.length > 0 && <Slider images={images} />}
@@ -103,13 +103,10 @@ export default function Page({ params }: Params) {
       )}
 
       <div
-        className={clsx(
-          'flex flex-col  bottom-0 z-[999] rounded-t-2xl bg-white',
-          {
-            '-mt-4': images?.length > 0,
-            'h-[100vh]': images?.length == 0,
-          },
-        )}
+        className={clsx('flex flex-col z-[999] rounded-t-2xl bg-white', {
+          '-mt-4': images?.length > 0,
+          'h-[100vh]': images?.length == 0,
+        })}
       >
         <div
           className={clsx('pt-2 px-6', {
@@ -245,11 +242,7 @@ export default function Page({ params }: Params) {
                 <h2 className="font-secondary text-title-default font-medium">
                   Observações
                 </h2>
-                <p
-                  data-aos="fade-up"
-                  data-aos-delay="200"
-                  className="text-sm text-text-default"
-                >
+                <p className="text-sm text-text-default">
                   {dish.section.description}
                 </p>
               </div>
