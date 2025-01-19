@@ -14,7 +14,6 @@ interface SearchParams {
 }
 
 export default async function Home({ searchParams }: SearchParams) {
-  console.log({ searchParams });
   return (
     <div
       className={clsx(

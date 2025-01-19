@@ -30,7 +30,8 @@ export function Slider({ images }: SliderProps) {
       pagination={{
         clickable: true,
       }}
-      className="dishes-slider h-72"
+      className="dishes-slider aspect-square"
+      style={{ zIndex: '-1' }}
     >
       {images?.map((image) => (
         <SwiperSlide key={image.url}>
