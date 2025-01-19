@@ -103,9 +103,8 @@ export default function Page({ params }: Params) {
       )}
 
       <div
-        className={clsx('flex flex-col z-[999] rounded-t-2xl bg-white', {
+        className={clsx('flex h-full flex-col z-[999] rounded-t-2xl bg-white', {
           '-mt-4': images?.length > 0,
-          'h-full': images?.length == 0,
         })}
       >
         <div
@@ -171,7 +170,6 @@ export default function Page({ params }: Params) {
               <p className="text-text-default">{dish.description}</p>
             )}
           </Loading>
-
           {/* Specs */}
           <Loading
             isLoading={isLoading}
@@ -183,7 +181,6 @@ export default function Page({ params }: Params) {
               <SpecsDetails specs={dish.dishSpecs} prepTime={dish.prepTime} />
             )}
           </Loading>
-
           {/* Flavors */}
           <Loading
             isLoading={isLoading}
@@ -207,7 +204,6 @@ export default function Page({ params }: Params) {
               />
             )}
           </Loading>
-
           {/* Additionals */}
           <Loading isLoading={isLoading} fallback={<></>}>
             {dish?.dishExtras?.length > 0 && (
@@ -223,7 +219,6 @@ export default function Page({ params }: Params) {
               </div>
             )}
           </Loading>
-
           {/* Observations */}
           <Loading
             isLoading={isLoading}
@@ -260,7 +255,7 @@ export default function Page({ params }: Params) {
           }
         >
           {dish?.price && (
-            <div className="px-6 text-center pb-4">
+            <div className="px-6 text-center pb-4 mt-auto">
               <Line />
               <p className="text-sm pt-4 font-bold title-default">Valor</p>
               <span className="font-extrabold">
