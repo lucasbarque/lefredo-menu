@@ -1,7 +1,6 @@
 import { Suspense } from 'react';
 
-import { notFound } from 'next/navigation';
-
+// import { notFound } from 'next/navigation';
 import { Chip } from './Chip';
 import { DishesList } from './DishesList';
 import { LoadingDishes } from './LoadingDishes';
@@ -18,17 +17,18 @@ interface SectionComponentProps {
 }
 
 export async function Sections({ menuId, sectionId }: SectionComponentProps) {
-  if (!menuId) {
-    notFound();
-  }
+  console.log({ menuId });
+  // if (!menuId) {
+  //   notFound();
+  // }
 
   const sections = await fetchWrapper<SectionProps[]>(
     `api/sections?menuId=${menuId}`,
   );
 
-  if (!sections) {
-    notFound();
-  }
+  // if (!sections) {
+  //   notFound();
+  // }
 
   const currentSection = sectionId ? sectionId : sections[0].id;
 
