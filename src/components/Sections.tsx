@@ -23,10 +23,10 @@ export async function Sections({ menuId, sectionId }: SectionComponentProps) {
   }
 
   const sections = await fetchWrapper<SectionProps[]>(
-    `/api/sections?menuId=${menuId}`,
+    `api/sections?menuId=${menuId}`,
   );
 
-  if (!sections) {
+  if (!sections || sections.length === 0) {
     notFound();
   }
 

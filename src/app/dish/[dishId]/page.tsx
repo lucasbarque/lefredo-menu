@@ -35,7 +35,7 @@ export default function Page({ params }: Params) {
   useEffect(() => {
     (async () => {
       const dataAPI = await fetchWrapper<DishDetails | null>(
-        `/api/dish/${params.dishId}`,
+        `api/dish/${params.dishId}`,
       );
       if (!dataAPI) {
         notFound();
@@ -99,9 +99,12 @@ export default function Page({ params }: Params) {
       )}
 
       <div
-        className={clsx('flex flex-col z-[999] rounded-t-2xl bg-white', {
-          '-mt-4': images?.length > 0,
-        })}
+        className={clsx(
+          'flex flex-col z-[999] rounded-t-2xl shadow-[0px_-13px_45px_-36px_#0d0d0d] bg-white',
+          {
+            '-mt-4': images?.length > 0,
+          },
+        )}
       >
         <div
           className={clsx('pt-2 px-6', {
@@ -162,7 +165,7 @@ export default function Page({ params }: Params) {
 
           {images?.length > 0 && <Line />}
         </div>
-        <div className="flex gap-4 flex-col overflow-y-auto px-6 pt-4 pb-4">
+        <div className="flex gap-4 flex-col overflow-y-auto px-6 pb-4 pt-4">
           {/* Description */}
           <Loading
             isLoading={isLoading}
@@ -185,7 +188,7 @@ export default function Page({ params }: Params) {
               <div className="h-[2.125rem] bg-slate-200 w-full rounded-full animate-pulse" />
             }
           >
-            {dish.dishSpecs && (
+            {dish?.dishSpecs?.length > 0 && (
               <SpecsDetails specs={dish.dishSpecs} prepTime={dish.prepTime} />
             )}
           </Loading>
