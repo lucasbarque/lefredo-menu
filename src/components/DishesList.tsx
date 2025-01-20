@@ -18,7 +18,7 @@ interface DishProps {
 
 export async function DishesList({ sectionId }: DishesListProps) {
   const dishes = await fetchWrapper<DishProps[]>(
-    `/api/dish?sectionId=${sectionId}`,
+    `api/dish?sectionId=${sectionId}`,
   );
   return (
     <div className="flex-1 overflow-y-auto px-6 pb-36 ">
