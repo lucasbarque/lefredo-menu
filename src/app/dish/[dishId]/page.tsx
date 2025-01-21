@@ -13,7 +13,7 @@ import { Line } from '@/components/Line';
 import { Loading } from '@/components/Loading';
 import { Slider } from '@/components/Slider';
 import { SpecsDetails } from '@/components/SpecsDetails';
-import { Tag } from '@/components/Tag';
+import { Tag } from '@/components/data-display/tag';
 
 import { DishDetails, DishMedias, DishSpecs } from './types';
 import { fetchWrapper } from '@/utils/fetchWrapper';

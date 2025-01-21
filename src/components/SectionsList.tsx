@@ -2,7 +2,8 @@
 
 import { useEffect, useRef } from 'react';
 
-import { Chip } from './Chip';
+import { Chip } from '@/components/data-display/chip';
+
 import { SectionProps } from './Sections';
 
 interface SectionsListProps {

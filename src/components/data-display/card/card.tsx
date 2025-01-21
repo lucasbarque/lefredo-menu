@@ -1,31 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { Specs } from './Specs';
-import { Tag } from './Tag';
+import { Tag } from '@/components/data-display/tag';
 
-interface CardImage {
-  title: string;
-  url: string;
-  filename: string;
-}
-
-interface DishSpecs {
-  DishSpecs: {
-    id: string;
-    title: string;
-    key: 'cold' | 'hot' | 'vegan' | 'highlighted';
-  };
-}
-
-export interface CardProps {
-  id: string;
-  title: string;
-  price: number;
-  portion: string | null;
-  medias: CardImage[];
-  specs: DishSpecs[];
-}
+import { Specs } from '../../Specs';
+import { CardProps } from './card.types';
 
 export function Card({ id, title, price, portion, medias, specs }: CardProps) {
   return (

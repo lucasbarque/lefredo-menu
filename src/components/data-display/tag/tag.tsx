@@ -1,6 +1,4 @@
-interface TagProps {
-  title: string;
-}
+import { TagProps } from './tag.types';
 
 export function Tag({ title }: TagProps) {
   return (

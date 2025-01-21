@@ -1,4 +1,5 @@
-import { Card } from './Card';
+import { Card } from '@/components/data-display/card';
+
 import { fetchWrapper } from '@/utils/fetchWrapper';
 
 interface DishesListProps {
