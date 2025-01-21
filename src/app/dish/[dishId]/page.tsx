@@ -9,10 +9,10 @@ import clsx from 'clsx';
 import { AdditionalsList } from '@/components/AdditionalsList';
 import { ButtonBack } from '@/components/ButtonBack';
 import { FlavorsDetails } from '@/components/FlavorsDetails';
-import { Line } from '@/components/Line';
-import { Loading } from '@/components/Loading';
-import { Slider } from '@/components/Slider';
 import { SpecsDetails } from '@/components/SpecsDetails';
+import { Line } from '@/components/data-display/line';
+import { Loading } from '@/components/data-display/loading';
+import { Slider } from '@/components/data-display/slider';
 import { Tag } from '@/components/data-display/tag';
 
 import { DishDetails, DishMedias, DishSpecs } from './types';

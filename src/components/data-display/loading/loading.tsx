@@ -1,10 +1,5 @@
-import { ReactNode } from 'react';
+import { LoadingProps } from './loading.types';
 
-interface LoadingProps {
-  children: ReactNode;
-  fallback: ReactNode;
-  isLoading: boolean;
-}
 export function Loading({ children, fallback, isLoading }: LoadingProps) {
   return (
     <>

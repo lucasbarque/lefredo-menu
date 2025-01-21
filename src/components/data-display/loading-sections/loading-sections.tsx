@@ -1,4 +1,4 @@
-import { LoadingDishes } from './LoadingDishes';
+import { LoadingDishes } from '@/components/data-display/loading-dishes';
 
 export function LoadingSections() {
   return (

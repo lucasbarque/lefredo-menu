@@ -2,20 +2,11 @@ import { Suspense } from 'react';
 
 import { notFound } from 'next/navigation';
 
-import { DishesList } from './DishesList';
-import { LoadingDishes } from './LoadingDishes';
-import { SectionsList } from './SectionsList';
+import { DishesList } from '../../../components/DishesList';
+import { SectionsList } from '../../../components/SectionsList';
+import { LoadingDishes } from '../../../components/data-display/loading-dishes/loading-dishes';
+import { SectionComponentProps, SectionProps } from './sections.types';
 import { fetchWrapper } from '@/utils/fetchWrapper';
-
-export interface SectionProps {
-  id: string;
-  title: string;
-}
-
-interface SectionComponentProps {
-  menuId: string | undefined;
-  sectionId: string | undefined;
-}
 
 export async function Sections({ menuId, sectionId }: SectionComponentProps) {
   if (!menuId) {

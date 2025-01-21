@@ -2,20 +2,12 @@
 
 import Image from 'next/image';
 
-import '../app/styles/slider.css';
+import { SliderProps } from './slider.types';
+import '@/app/styles/slider.css';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Autoplay, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-export interface Image {
-  title: string;
-  url: string;
-}
-
-interface SliderProps {
-  images?: Image[];
-}
 
 export function Slider({ images }: SliderProps) {
   return (

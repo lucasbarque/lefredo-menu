@@ -2,9 +2,10 @@ import { Suspense } from 'react';
 
 import clsx from 'clsx';
 
-import { LoadingSections } from '@/components/LoadingSections';
-import { Sections } from '@/components/Sections';
 import { Header } from '@/components/data-display/header';
+import { LoadingSections } from '@/components/data-display/loading-sections/loading-sections';
+
+import { Sections } from '@/app/components/sections';
 
 interface SearchParams {
   searchParams: {
