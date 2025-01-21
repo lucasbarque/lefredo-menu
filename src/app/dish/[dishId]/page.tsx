@@ -35,7 +35,7 @@ export default function Page({ params }: Params) {
   useEffect(() => {
     (async () => {
       const dataAPI = await fetchWrapper<DishDetails | null>(
-        `/api/dish/${params.dishId}`,
+        `api/dish/${params.dishId}`,
       );
       if (!dataAPI) {
         notFound();
@@ -87,27 +87,22 @@ export default function Page({ params }: Params) {
   }, [currentFlavorId]);
 
   return (
-    <div className="z-0">
-      <ButtonBack className="absolute left-5 top-8 z-40 flex h-9 w-9 items-center justify-center rounded-lg bg-brand-primary" />
+    <div className="z-0 relative pb-6">
+      <ButtonBack className="absolute left-5 top-7 z-40 flex h-9 w-9 items-center justify-center rounded-lg bg-brand-primary" />
 
       {images?.length > 0 && <Slider images={images} />}
 
       {hasHighlighted && (
-        <div
-          data-aos="fade-left"
-          data-aos-delay="200"
-          className="bg-brand-primary z-40 absolute top-8 right-0 text-chip-title-active text-lg w-fit h-8 flex items-center justify-center px-4 rounded-tl-md rounded-bl-md mx-auto"
-        >
+        <div className="bg-brand-primary z-40 absolute top-8 right-0 text-chip-title-active text-lg w-fit h-8 flex items-center justify-center px-4 rounded-tl-md rounded-bl-md mx-auto">
           {hasHighlighted.DishSpecs.title}
         </div>
       )}
 
       <div
         className={clsx(
-          'absolute flex flex-col left-0 right-0 bottom-0 z-10  rounded-t-2xl bg-white',
+          'flex flex-col z-[999] rounded-t-2xl shadow-[0px_-13px_45px_-36px_#0d0d0d] bg-white',
           {
-            'h-[67vh]': images?.length > 0,
-            'h-[100vh]': images?.length == 0,
+            '-mt-4': images?.length > 0,
           },
         )}
       >
@@ -116,49 +111,61 @@ export default function Page({ params }: Params) {
             'mt-3': images && images.length == 0,
           })}
         >
-          <div className="flex items-center justify-center">
+          <div className="flex justify-between items-center pb-2">
             <Loading
               isLoading={isLoading}
               fallback={
-                <div className="bg-slate-200 w-24 animate-pulse h-[1.375rem] rounded-xl" />
+                <div className="mx-auto mt-1 bg-slate-200 w-40 animate-pulse h-[1.375rem] rounded-xl" />
               }
             >
-              {dish.portion && (
-                <div data-aos="fade-down" data-aos-delay="150">
-                  <Tag title={dish.portion} />
-                </div>
-              )}
+              <h2
+                className={clsx(
+                  'font-secondary font-bold text-2xl text-title-default',
+                  {
+                    'pl-11': images && images.length === 0,
+                  },
+                )}
+              >
+                {dish?.title}
+              </h2>
             </Loading>
+
+            {dish?.price && (
+              <div className="flex flex-col gap-1 shrink-0 justify-end items-end">
+                <Loading
+                  isLoading={isLoading}
+                  fallback={
+                    <div className="bg-slate-200 w-24 animate-pulse h-[1.375rem] rounded-xl" />
+                  }
+                >
+                  {dish.portion && (
+                    <div>
+                      <Tag title={dish.portion} />
+                    </div>
+                  )}
+                </Loading>
+
+                <span className="font-extrabold">
+                  R$
+                  {' ' +
+                    new Intl.NumberFormat('pt-BR', {
+                      currency: 'BRL',
+                      minimumFractionDigits: 2,
+                    }).format(dish.price / 100)}
+                </span>
+              </div>
+            )}
           </div>
 
-          <Loading
-            isLoading={isLoading}
-            fallback={
-              <div className="mx-auto mt-1 bg-slate-200 w-40 animate-pulse h-[1.375rem] rounded-xl" />
-            }
-          >
-            <h2
-              data-aos="zoom-in"
-              data-aos-delay="200"
-              className="px-8 font-secondary font-bold text-center text-2xl text-title-default pb-2"
-            >
-              {dish?.title}
-            </h2>
-          </Loading>
-
           {images?.length === 0 && hasHighlighted && (
-            <div
-              data-aos="zoom-out"
-              data-aos-delay="200"
-              className="bg-brand-primary text-chip-title-active text-lg w-fit h-8 flex items-center justify-center px-4 rounded-md mx-auto"
-            >
+            <div className="bg-brand-primary text-chip-title-active text-lg w-fit h-8 flex items-center justify-center px-4 rounded-md mx-auto">
               {hasHighlighted.DishSpecs.title}
             </div>
           )}
 
           {images?.length > 0 && <Line />}
         </div>
-        <div className="flex-1 flex gap-4 flex-col overflow-y-auto px-6 pt-4 pb-4">
+        <div className="flex gap-4 flex-col overflow-y-auto px-6 pb-4 pt-4">
           {/* Description */}
           <Loading
             isLoading={isLoading}
@@ -171,16 +178,9 @@ export default function Page({ params }: Params) {
             }
           >
             {dish?.description && (
-              <p
-                data-aos="zoom-out"
-                data-aos-delay="200"
-                className="text-text-default"
-              >
-                {dish.description}
-              </p>
+              <p className="text-text-default">{dish.description}</p>
             )}
           </Loading>
-
           {/* Specs */}
           <Loading
             isLoading={isLoading}
@@ -188,11 +188,10 @@ export default function Page({ params }: Params) {
               <div className="h-[2.125rem] bg-slate-200 w-full rounded-full animate-pulse" />
             }
           >
-            {dish.dishSpecs && (
+            {dish?.dishSpecs?.length > 0 && (
               <SpecsDetails specs={dish.dishSpecs} prepTime={dish.prepTime} />
             )}
           </Loading>
-
           {/* Flavors */}
           <Loading
             isLoading={isLoading}
@@ -216,16 +215,11 @@ export default function Page({ params }: Params) {
               />
             )}
           </Loading>
-
           {/* Additionals */}
           <Loading isLoading={isLoading} fallback={<></>}>
             {dish?.dishExtras?.length > 0 && (
               <div>
-                <h2
-                  data-aos="zoom-out"
-                  data-aos-delay="200"
-                  className="font-secondary text-title-default font-medium pb-1"
-                >
+                <h2 className="font-secondary text-title-default font-medium pb-1">
                   Adicionais
                 </h2>
                 <AdditionalsList
@@ -236,7 +230,6 @@ export default function Page({ params }: Params) {
               </div>
             )}
           </Loading>
-
           {/* Observations */}
           <Loading
             isLoading={isLoading}
@@ -252,49 +245,16 @@ export default function Page({ params }: Params) {
           >
             {dish?.section?.description && (
               <div>
-                <h2
-                  data-aos="fade-up"
-                  data-aos-delay="150"
-                  className="font-secondary text-title-default font-medium"
-                >
+                <h2 className="font-secondary text-title-default font-medium">
                   Observações
                 </h2>
-                <p
-                  data-aos="fade-up"
-                  data-aos-delay="200"
-                  className="text-sm text-text-default"
-                >
+                <p className="text-sm text-text-default">
                   {dish.section.description}
                 </p>
               </div>
             )}
           </Loading>
         </div>
-
-        <Loading
-          isLoading={isLoading}
-          fallback={
-            <div className="pb-4">
-              <div className="h-4 mt-4 mx-auto bg-slate-200 w-16 rounded-xl animate-pulse" />
-              <div className="mt-2 h-3 mx-auto bg-slate-200 w-24 rounded-xl animate-pulse" />
-            </div>
-          }
-        >
-          {dish?.price && (
-            <div className="px-6 text-center pb-4">
-              <Line />
-              <p className="text-sm pt-4 font-bold title-default">Valor</p>
-              <span className="font-extrabold">
-                R$
-                {' ' +
-                  new Intl.NumberFormat('pt-BR', {
-                    currency: 'BRL',
-                    minimumFractionDigits: 2,
-                  }).format(dish.price / 100)}
-              </span>
-            </div>
-          )}
-        </Loading>
       </div>
     </div>
   );
