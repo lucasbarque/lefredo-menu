@@ -21,7 +21,7 @@ export function useDishId({ params }: DishIdParams) {
   useEffect(() => {
     (async () => {
       const dataAPI = await fetchWrapper<DishDetails | null>(
-        `/api/dish/${params.dishId}`,
+        `api/dish/${params.dishId}`,
       );
       if (!dataAPI) {
         notFound();
