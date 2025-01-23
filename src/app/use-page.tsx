@@ -9,7 +9,7 @@ export async function usePage({ searchParams }: SearchParams) {
   if (!searchParams.menuId) notFound();
 
   const sections = await fetchWrapper<SectionProps[]>(
-    `/api/sections?menuId=${searchParams.menuId}`,
+    `api/sections?menuId=${searchParams.menuId}`,
   );
 
   if (!sections || sections.length === 0) notFound();
@@ -17,7 +17,7 @@ export async function usePage({ searchParams }: SearchParams) {
   const currentSection = searchParams?.sectionId || sections[0].id;
 
   const dishes = await fetchWrapper<DishProps[]>(
-    `/api/dish?sectionId=${searchParams.sectionId}`,
+    `api/dish?sectionId=${currentSection}`,
   );
 
   return {
