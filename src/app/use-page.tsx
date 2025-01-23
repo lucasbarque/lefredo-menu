@@ -17,7 +17,7 @@ export async function usePage({ searchParams }: SearchParams) {
   const currentSection = searchParams?.sectionId || sections[0].id;
 
   const dishes = await fetchWrapper<DishProps[]>(
-    `api/dish?sectionId=${searchParams.sectionId}`,
+    `api/dish?sectionId=${currentSection}`,
   );
 
   return {
