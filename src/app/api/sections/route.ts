@@ -15,7 +15,6 @@ export async function GET(request: NextRequest) {
     const sections = await axios.get('sections', {
       params: { menuId },
     });
-    console.log(sections);
 
     return NextResponse.json(sections.data);
   } catch (error) {
