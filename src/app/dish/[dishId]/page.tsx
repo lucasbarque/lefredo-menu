@@ -1,94 +1,33 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
-import { notFound } from 'next/navigation';
-
 import clsx from 'clsx';
 
-import { AdditionalsList } from '@/components/AdditionalsList';
-import { ButtonBack } from '@/components/ButtonBack';
-import { FlavorsDetails } from '@/components/FlavorsDetails';
-import { Line } from '@/components/Line';
-import { Loading } from '@/components/Loading';
-import { Slider } from '@/components/Slider';
-import { SpecsDetails } from '@/components/SpecsDetails';
-import { Tag } from '@/components/Tag';
+import { Line } from '@/components/data-display/line';
+import { Loading } from '@/components/data-display/loading';
+import { Slider } from '@/components/data-display/slider';
+import { Tag } from '@/components/data-display/tag';
 
-import { DishDetails, DishMedias, DishSpecs } from './types';
-import { fetchWrapper } from '@/utils/fetchWrapper';
+import { DishIdParams } from './dish-id.types';
+import { useDishId } from './use-dish-id';
+import { AdditionalsList } from '@/app/dish/[dishId]/_components/additionals-list';
+import { ButtonBack } from '@/app/dish/[dishId]/_components/button-back/button-back';
+import { FlavorsDetails } from '@/app/dish/[dishId]/_components/flavors-details/flavors-details';
+import { SpecsDetails } from '@/app/dish/[dishId]/_components/specs-details/specs-details';
 
-interface Params {
-  params: {
-    dishId: string;
-  };
-}
-
-export default function Page({ params }: Params) {
-  const [dish, setDish] = useState<DishDetails>({} as DishDetails);
-  const [isLoading, setIsLoading] = useState(true);
-  const [images, setImages] = useState<{ title: string; url: string }[]>([]);
-  const [imagesFlavors, setImagesFlavors] = useState<DishMedias[]>([]);
-  const [hasHighlighted, setHasHighlighted] = useState<DishSpecs>();
-  const [currentFlavorId, setCurrentFlavorId] = useState('');
-
-  useEffect(() => {
-    (async () => {
-      const dataAPI = await fetchWrapper<DishDetails | null>(
-        `api/dish/${params.dishId}`,
-      );
-      if (!dataAPI) {
-        notFound();
-      }
-
-      if (dataAPI.medias.length > 0 && dataAPI.dishFlavors.length === 0) {
-        setImages(
-          dataAPI.medias.map((image) => {
-            return {
-              title: image.id,
-              url: image.filename,
-            };
-          }),
-        );
-      } else if (dataAPI.medias.length > 0 && dataAPI.dishFlavors.length > 0) {
-        setImagesFlavors(dataAPI.medias);
-      }
-
-      const hasHighlighted = dataAPI?.dishSpecs.find(
-        (spec) => spec.DishSpecs.key === 'highlighted',
-      );
-      setHasHighlighted(hasHighlighted);
-      setDish(dataAPI);
-      setIsLoading(false);
-      if (dataAPI.dishFlavors.length > 0) {
-        setCurrentFlavorId(dataAPI.dishFlavors[0].id);
-      }
-    })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    if (!currentFlavorId) return;
-
-    const mediasFlavors = imagesFlavors?.filter(
-      (flavor) => flavor.referenceId === currentFlavorId,
-    );
-
-    if (mediasFlavors.length === 0) return;
-
-    const mediasFlavorsUpdated = mediasFlavors.map((image) => {
-      return {
-        title: image.id,
-        url: image.filename,
-      };
-    });
-    setImages(mediasFlavorsUpdated);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentFlavorId]);
+export default function Page({ params }: DishIdParams) {
+  const {
+    images,
+    hasHighlighted,
+    isLoading,
+    dish,
+    setDish,
+    currentFlavorId,
+    setCurrentFlavorId,
+  } = useDishId({ params });
 
   return (
     <div className="z-0 relative pb-6">
-      <ButtonBack className="absolute left-5 top-7 z-40 flex h-9 w-9 items-center justify-center rounded-lg bg-brand-primary" />
+      <ButtonBack className="absolute left-5 top-7 z-40" />
 
       {images?.length > 0 && <Slider images={images} />}
 
