@@ -1,33 +1,32 @@
-interface SectionData {
+export type DishMedias = {
+  id: string;
+  filename: string;
+  referenceId: string;
+};
+export type SectionData = {
   description: string;
-}
+};
 
-export interface DishExtras {
-  id: string;
-  title: string;
-  price: number;
-}
-
-export interface DishFlavors {
-  id: string;
-  title: string;
-  label: string;
-  description: string | null;
-}
-
-export interface DishSpecs {
+export type DishSpecs = {
   DishSpecs: {
     id: string;
     title: string;
     key: 'cold' | 'hot' | 'vegan' | 'highlighted';
   };
-}
+};
 
-export interface DishMedias {
+export type DishExtras = {
   id: string;
-  filename: string;
-  referenceId: string;
-}
+  title: string;
+  price: number;
+};
+
+export type DishFlavors = {
+  id: string;
+  title: string;
+  label: string;
+  description: string | null;
+};
 
 export interface DishDetails {
   id: string;

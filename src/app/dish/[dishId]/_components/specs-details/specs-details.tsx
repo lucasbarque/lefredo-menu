@@ -1,15 +1,10 @@
-import { DishSpecs } from '@/app/dish/[dishId]/types';
+import { SpecProps } from './specs-details.types';
 import {
   IconClockHour4,
   IconFlame,
   IconLeaf,
   IconSnowflake,
 } from '@tabler/icons-react';
-
-interface SpecProps {
-  specs: DishSpecs[];
-  prepTime: number | null;
-}
 
 export function SpecsDetails({ specs, prepTime }: SpecProps) {
   return (

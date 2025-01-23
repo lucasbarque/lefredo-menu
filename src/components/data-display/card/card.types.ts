@@ -1,15 +1,9 @@
+import { DishSpecs } from '@/app/api/dish/[id]/dish.types';
+
 type CardImage = {
   title: string;
   url: string;
   filename: string;
-};
-
-type DishSpecs = {
-  DishSpecs: {
-    id: string;
-    title: string;
-    key: 'cold' | 'hot' | 'vegan' | 'highlighted';
-  };
 };
 
 export interface CardProps {

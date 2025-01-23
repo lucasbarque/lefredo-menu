@@ -1,16 +1,5 @@
+import { SpecProps } from './specs.types';
 import { IconFlame, IconLeaf, IconSnowflake } from '@tabler/icons-react';
-
-interface DishSpecs {
-  DishSpecs: {
-    id: string;
-    title: string;
-    key: 'cold' | 'hot' | 'vegan' | 'highlighted';
-  };
-}
-
-interface SpecProps {
-  specs: DishSpecs[];
-}
 
 export function Specs({ specs }: SpecProps) {
   return (

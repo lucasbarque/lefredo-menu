@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import { Tag } from '@/components/data-display/tag';
 
-import { Specs } from '../../Specs';
+import { Specs } from '../specs/specs';
 import { CardProps } from './card.types';
 
 export function Card({ id, title, price, portion, medias, specs }: CardProps) {

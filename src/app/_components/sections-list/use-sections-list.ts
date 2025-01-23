@@ -1,17 +1,10 @@
-'use client';
-
 import { useEffect, useRef } from 'react';
 
-import { Chip } from '@/components/data-display/chip';
+import { useSectionsListProps } from './sections-list.types';
 
-import { SectionProps } from '@/app/components/sections/sections.types';
-
-interface SectionsListProps {
-  sections: SectionProps[];
-  currentSection: string;
-}
-
-export function SectionsList({ sections, currentSection }: SectionsListProps) {
+export default function useSectionsList({
+  currentSection,
+}: useSectionsListProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const buttonRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
 
@@ -35,24 +28,8 @@ export function SectionsList({ sections, currentSection }: SectionsListProps) {
     }
   }, [currentSection]);
 
-  return (
-    <div
-      ref={containerRef}
-      className="z-10 flex overflow-x-auto px-6 pt-3 pb-3 gap-2"
-    >
-      {sections.map((section) => (
-        <Chip
-          key={section.id}
-          id={section.id}
-          title={section.title}
-          isActive={currentSection === section.id}
-          ref={(element) => {
-            if (element) {
-              buttonRefs.current.set(section.id, element);
-            }
-          }}
-        />
-      ))}
-    </div>
-  );
+  return {
+    containerRef,
+    buttonRefs,
+  };
 }
