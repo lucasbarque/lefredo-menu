@@ -6,9 +6,6 @@ import { notFound } from 'next/navigation';
 
 import clsx from 'clsx';
 
-import { AdditionalsList } from '@/components/AdditionalsList';
-import { ButtonBack } from '@/components/ButtonBack';
-import { FlavorsDetails } from '@/components/FlavorsDetails';
 import { SpecsDetails } from '@/components/SpecsDetails';
 import { Line } from '@/components/data-display/line';
 import { Loading } from '@/components/data-display/loading';
@@ -16,6 +13,9 @@ import { Slider } from '@/components/data-display/slider';
 import { Tag } from '@/components/data-display/tag';
 
 import { DishDetails, DishMedias, DishSpecs } from './types';
+import { AdditionalsList } from '@/app/components/additionals-list';
+import { ButtonBack } from '@/app/dish/components/button-back/button-back';
+import { FlavorsDetails } from '@/app/dish/components/flavors-details/flavors-details';
 import { fetchWrapper } from '@/utils/fetchWrapper';
 
 interface Params {
@@ -88,7 +88,7 @@ export default function Page({ params }: Params) {
 
   return (
     <div className="z-0 relative pb-6">
-      <ButtonBack className="absolute left-5 top-7 z-40 flex h-9 w-9 items-center justify-center rounded-lg bg-brand-primary" />
+      <ButtonBack className="absolute left-5 top-7 z-40" />
 
       {images?.length > 0 && <Slider images={images} />}
 

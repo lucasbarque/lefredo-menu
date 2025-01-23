@@ -1,15 +1,7 @@
 'use client';
 
-import { Dispatch, SetStateAction } from 'react';
-
-import { DishDetails, DishExtras } from '@/app/dish/[dishId]/types';
+import { AdditionalsListProps } from './additionals-list.types';
 import * as RadioGroup from '@radix-ui/react-radio-group';
-
-interface AdditionalsListProps {
-  currentPriceValue: number;
-  dishExtras: DishExtras[];
-  changeDish: Dispatch<SetStateAction<DishDetails>>;
-}
 
 export function AdditionalsList({
   currentPriceValue,
