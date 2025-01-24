@@ -14,6 +14,7 @@ export function useDishId({ params }: DishIdParams) {
   const [dish, setDish] = useState<DishDetails>({} as DishDetails);
   const [isLoading, setIsLoading] = useState(true);
   const [images, setImages] = useState<{ title: string; url: string }[]>([]);
+  const [price, setPrice] = useState(0);
   const [imagesFlavors, setImagesFlavors] = useState<DishMedias[]>([]);
   const [hasHighlighted, setHasHighlighted] = useState<DishSpecs>();
   const [currentFlavorId, setCurrentFlavorId] = useState('');
@@ -45,6 +46,7 @@ export function useDishId({ params }: DishIdParams) {
       );
       setHasHighlighted(hasHighlighted);
       setDish(dataAPI);
+      setPrice(dataAPI.price);
       setIsLoading(false);
       if (dataAPI.dishFlavors.length > 0) {
         setCurrentFlavorId(dataAPI.dishFlavors[0].id);
@@ -80,5 +82,7 @@ export function useDishId({ params }: DishIdParams) {
     setDish,
     currentFlavorId,
     setCurrentFlavorId,
+    price,
+    setPrice,
   };
 }
