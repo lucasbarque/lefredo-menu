@@ -23,6 +23,8 @@ export default function Page({ params }: DishIdParams) {
     setDish,
     currentFlavorId,
     setCurrentFlavorId,
+    price,
+    setPrice,
   } = useDishId({ params });
 
   return (
@@ -90,7 +92,7 @@ export default function Page({ params }: DishIdParams) {
                     new Intl.NumberFormat('pt-BR', {
                       currency: 'BRL',
                       minimumFractionDigits: 2,
-                    }).format(dish.price / 100)}
+                    }).format(price / 100)}
                 </span>
               </div>
             )}
@@ -162,8 +164,8 @@ export default function Page({ params }: DishIdParams) {
                   Adicionais
                 </h2>
                 <AdditionalsList
-                  currentPriceValue={dish.price || 0}
-                  changeDish={setDish}
+                  dishPrice={dish.price}
+                  setPrice={setPrice}
                   dishExtras={dish.dishExtras}
                 />
               </div>
