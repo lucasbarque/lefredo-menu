@@ -15,20 +15,20 @@ export function FlavorsDetails({
 
   return (
     <div>
-      <h2 className="font-secondary text-title-default font-medium">Sabores</h2>
-      <div className="flex gap-2 flex-wrap">
+      <h2 className='font-secondary text-title-default font-medium'>Sabores</h2>
+      <div className='flex flex-wrap gap-2'>
         {dishFlavors.map((flavor) => (
           <div key={flavor.id}>
             <button
               onClick={() => setCurrentFlavorId(flavor.id)}
               className={clsx(
-                'h-[2.063rem] whitespace-nowrap rounded-2xl border px-4 text-sm font-medium transition-colors',
+                'h-[2.063rem] rounded-2xl px-4 text-sm font-medium whitespace-nowrap transition-colors',
                 {
-                  'bg-brand-primary text-chip-title-active ':
+                  'bg-brand-primary text-chip-title-active':
                     currentFlavorId === flavor.id,
-                  'bg-chip-background text-chip-title ':
+                  'bg-chip-background text-chip-title':
                     currentFlavorId !== flavor.id,
-                },
+                }
               )}
             >
               {flavor.label}

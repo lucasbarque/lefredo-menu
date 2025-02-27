@@ -1,5 +1,5 @@
 export interface DishIdParams {
-  params: {
+  params: Promise<{
     dishId: string;
-  };
+  }>;
 }

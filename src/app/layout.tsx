@@ -1,9 +1,7 @@
-import type { Metadata } from 'next';
-
+import { Metadata } from 'next';
 import { Nunito } from 'next/font/google';
 
-import './globals.css';
-import './styles/slider.css';
+import '@/styles/global.css';
 
 export const metadata: Metadata = {
   title: 'Le Fredo | Menu',
@@ -22,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={nunito.variable}>
+    <html lang='pt-BR' className={nunito.variable}>
       <body>{children}</body>
     </html>
   );

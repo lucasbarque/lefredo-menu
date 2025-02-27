@@ -1,12 +1,16 @@
 import { useEffect, useRef } from 'react';
 
+import { useSearchParams } from 'next/navigation';
+
 import { useSectionsListProps } from './sections-list.types';
 
-export default function useSectionsList({
-  currentSection,
-}: useSectionsListProps) {
+export default function useSectionsList({ sections }: useSectionsListProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const buttonRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
+
+  const searchParams = useSearchParams();
+  const section = searchParams.get('section');
+  const currentSection = section || sections[0].slug;
 
   useEffect(() => {
     if (!currentSection && !buttonRefs.current.has(currentSection)) return;
@@ -31,5 +35,6 @@ export default function useSectionsList({
   return {
     containerRef,
     buttonRefs,
+    currentSection,
   };
 }

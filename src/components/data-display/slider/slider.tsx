@@ -1,13 +1,14 @@
 'use client';
 
 import Image from 'next/image';
-
-import { SliderProps } from './slider.types';
-import '@/app/styles/slider.css';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Autoplay, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+
+import '@/styles/slider.css';
+
+import { SliderProps } from './slider.types';
 
 export function Slider({ images }: SliderProps) {
   return (
@@ -22,18 +23,18 @@ export function Slider({ images }: SliderProps) {
       pagination={{
         clickable: true,
       }}
-      className="dishes-slider aspect-square"
+      className='dishes-slider aspect-square'
       style={{ zIndex: '-1' }}
     >
       {images?.map((image) => (
         <SwiperSlide key={image.url}>
           <Image
-            src={image.url}
+            src={process.env.NEXT_PUBLIC_BUCKET_URL + image.url}
             alt={image.title}
             fill
             quality={100}
-            className="w-full object-cover"
-            loading="lazy"
+            className='w-full object-cover'
+            loading='lazy'
           />
         </SwiperSlide>
       ))}

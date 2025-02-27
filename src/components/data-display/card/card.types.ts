@@ -1,16 +1,3 @@
-import { DishSpecs } from '@/app/api/dish/[id]/dish.types';
+import { GetDishesDTO } from '@/http/api';
 
-type CardImage = {
-  title: string;
-  url: string;
-  filename: string;
-};
-
-export interface CardProps {
-  id: string;
-  title: string;
-  price: number;
-  portion: string | null;
-  medias: CardImage[];
-  specs: DishSpecs[];
-}
+export type CardProps = Omit<GetDishesDTO, 'prepTime'>;

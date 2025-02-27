@@ -1,10 +1,10 @@
 'use client';
 
-import { ArrowLeft } from 'react-feather';
+import { cn } from '@/lib/utils';
+import { IconArrowLeft } from '@tabler/icons-react';
 
 import { ButtonBackProps } from './button-back.types';
 import useButtonBack from './use-button-back';
-import { cn } from '@/utils/cn';
 
 export function ButtonBack({ ...rest }: ButtonBackProps) {
   const { router } = useButtonBack();
@@ -13,12 +13,12 @@ export function ButtonBack({ ...rest }: ButtonBackProps) {
     <button
       {...rest}
       className={cn(
-        'flex h-9 w-9 items-center justify-center rounded-lg bg-brand-primary',
-        rest.className,
+        'bg-brand-primary flex h-9 w-9 items-center justify-center rounded-lg',
+        rest.className
       )}
       onClick={() => router.back()}
     >
-      <ArrowLeft size={18} strokeWidth={3} color="#fff" />
+      <IconArrowLeft size={18} strokeWidth={3} color='#fff' />
     </button>
   );
 }

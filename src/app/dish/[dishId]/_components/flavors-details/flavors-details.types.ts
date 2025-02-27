@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 
-import { DishDetails, DishFlavors } from '@/app/api/dish/[id]/dish.types';
+import { DishDetails, DishFlavors } from '../../../../api/dish/[id]/dish.types';
 
 export interface FlavorsDetailsProps {
   dishFlavors: DishFlavors[];

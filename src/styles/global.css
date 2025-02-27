@@ -1,0 +1,42 @@
+@import 'tailwindcss';
+@plugin "flowbite/plugin";
+
+html {
+  @apply h-full font-sans antialiased;
+}
+
+body {
+  @apply h-full;
+}
+
+@theme {
+  --font-sans: var(--font-nunito);
+
+  --color-title-default: #393939;
+  --color-text-default: #adadb5;
+  --color-brand-primary: #de6c53;
+  --color-chip-title-active: #ffffff;
+  --color-chip-title: #2e2e2e;
+  --color-chip-background: #f7f7f8;
+  --color-tag-background: rgba(222, 108, 83, 0.2);
+  --color-flag-text: #ffffff;
+  --color-tag-details-background: #f7f7f8;
+  --color-line: #dbdbdb;
+  --color-black: #2e2e2e;
+
+  --shadow-lg:
+    0 0px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-card: 1px 2px 11.5px 0px rgba(0, 0, 0, 0.11);
+  --drop-shadow-2xl: 40px 0px 21px rgb(61 64 82 / 8%);
+  --3xl: 42px 8px 54px rgba(20, 78, 90, 0.6);
+
+  --animate-logo: logo 3s ease-in-out infinite;
+  @keyframes logo {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+}

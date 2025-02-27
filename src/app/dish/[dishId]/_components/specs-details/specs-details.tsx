@@ -1,4 +1,3 @@
-import { SpecProps } from './specs-details.types';
 import {
   IconClockHour4,
   IconFlame,
@@ -6,14 +5,16 @@ import {
   IconSnowflake,
 } from '@tabler/icons-react';
 
+import { SpecProps } from './specs-details.types';
+
 export function SpecsDetails({ specs, prepTime }: SpecProps) {
   return (
-    <div className="bg-tag-details-background w-full flex items-center gap-4 justify-center rounded-2xl">
+    <div className='bg-tag-details-background flex w-full items-center justify-center gap-4 rounded-2xl'>
       {prepTime && (
-        <div className="flex gap-1 items-center h-[2.125rem]">
-          <IconClockHour4 className="text-text-default" size={16} />
-          <span className="text-sm font-medium text-title-default">
-            {prepTime} Minuto{prepTime > 1 && 's'}
+        <div className='flex h-[2.125rem] items-center gap-1'>
+          <IconClockHour4 className='text-text-default' size={16} />
+          <span className='text-title-default text-sm font-medium'>
+            {prepTime}
           </span>
         </div>
       )}
@@ -21,15 +22,15 @@ export function SpecsDetails({ specs, prepTime }: SpecProps) {
         if (spec.DishSpecs.key === 'cold') {
           return (
             <div
-              className="flex gap-1 items-center h-[2.125rem]"
+              className='flex h-[2.125rem] items-center gap-1'
               key={spec.DishSpecs.id}
             >
               <IconSnowflake
-                className="text-text-default"
+                className='text-text-default'
                 key={spec.DishSpecs.id}
                 size={16}
               />
-              <span className="text-sm font-medium text-title-default">
+              <span className='text-title-default text-sm font-medium'>
                 {spec.DishSpecs.title}
               </span>
             </div>
@@ -40,14 +41,14 @@ export function SpecsDetails({ specs, prepTime }: SpecProps) {
           return (
             <div
               key={spec.DishSpecs.id}
-              className="flex gap-1 items-center h-[2.125rem]"
+              className='flex h-[2.125rem] items-center gap-1'
             >
               <IconFlame
-                className="text-text-default"
+                className='text-text-default'
                 key={spec.DishSpecs.id}
                 size={17}
               />
-              <span className="text-sm font-medium text-title-default">
+              <span className='text-title-default text-sm font-medium'>
                 {spec.DishSpecs.title}
               </span>
             </div>
@@ -57,14 +58,14 @@ export function SpecsDetails({ specs, prepTime }: SpecProps) {
           return (
             <div
               key={spec.DishSpecs.id}
-              className="flex gap-1 items-center h-[2.125rem]"
+              className='flex h-[2.125rem] items-center gap-1'
             >
               <IconLeaf
-                className="mr-1 text-text-default"
+                className='text-text-default mr-1'
                 key={spec.DishSpecs.id}
                 size={17}
               />
-              <span className="text-sm font-medium text-title-default">
+              <span className='text-title-default text-sm font-medium'>
                 {spec.DishSpecs.title}
               </span>
             </div>

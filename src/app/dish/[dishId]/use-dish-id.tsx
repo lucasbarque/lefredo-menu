@@ -1,48 +1,43 @@
 import { useEffect, useState } from 'react';
 
+import { getDishDetailsById } from '@/actions/dishes.action';
+import {
+  DishMediasDTO,
+  DishSpecKey,
+  DishSpecsDTO,
+  GetDishDTO,
+} from '@/http/api';
 import { notFound } from 'next/navigation';
 
-import { DishIdParams } from './dish-id.types';
-import {
-  DishDetails,
-  DishMedias,
-  DishSpecs,
-} from '@/app/api/dish/[id]/dish.types';
-import { fetchWrapper } from '@/utils/fetchWrapper';
-
-export function useDishId({ params }: DishIdParams) {
-  const [dish, setDish] = useState<DishDetails>({} as DishDetails);
+export function useDishId(id: string) {
+  const [dish, setDish] = useState<GetDishDTO>({} as GetDishDTO);
   const [isLoading, setIsLoading] = useState(true);
-  const [images, setImages] = useState<{ title: string; url: string }[]>([]);
+  const [images, setImages] = useState<DishMediasDTO[]>([]);
   const [price, setPrice] = useState(0);
-  const [imagesFlavors, setImagesFlavors] = useState<DishMedias[]>([]);
-  const [hasHighlighted, setHasHighlighted] = useState<DishSpecs>();
+  const [hasHighlighted, setHasHighlighted] = useState<DishSpecsDTO>();
   const [currentFlavorId, setCurrentFlavorId] = useState('');
 
   useEffect(() => {
     (async () => {
-      const dataAPI = await fetchWrapper<DishDetails | null>(
-        `api/dish/${params.dishId}`,
-      );
+      const { data: dataAPI } = await getDishDetailsById(id);
       if (!dataAPI) {
         notFound();
       }
 
-      if (dataAPI.medias.length > 0 && dataAPI.dishFlavors.length === 0) {
+      if (dataAPI.dishMedias.length > 0 && dataAPI.dishFlavors.length === 0) {
         setImages(
-          dataAPI.medias.map((image) => {
+          dataAPI.dishMedias.map((image) => {
             return {
+              id: image.id,
               title: image.id,
-              url: image.filename,
+              url: image.url,
             };
-          }),
+          })
         );
-      } else if (dataAPI.medias.length > 0 && dataAPI.dishFlavors.length > 0) {
-        setImagesFlavors(dataAPI.medias);
       }
 
       const hasHighlighted = dataAPI?.dishSpecs.find(
-        (spec) => spec.DishSpecs.key === 'highlighted',
+        (spec) => spec.DishSpecs.key === DishSpecKey.highlited
       );
       setHasHighlighted(hasHighlighted);
       setDish(dataAPI);
@@ -52,25 +47,24 @@ export function useDishId({ params }: DishIdParams) {
         setCurrentFlavorId(dataAPI.dishFlavors[0].id);
       }
     })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (!currentFlavorId) return;
 
-    const mediasFlavors = imagesFlavors?.filter(
-      (flavor) => flavor.referenceId === currentFlavorId,
+    const currentFlavor = dish.dishFlavors.find(
+      (flavor) => flavor.id === currentFlavorId
     );
 
-    if (mediasFlavors.length === 0) return;
-
-    const mediasFlavorsUpdated = mediasFlavors.map((image) => {
-      return {
-        title: image.id,
-        url: image.filename,
-      };
-    });
-    setImages(mediasFlavorsUpdated);
+    const mediasFlavors =
+      currentFlavor?.dishFlavorsMedias.map((currentFlavor) => {
+        return {
+          id: currentFlavor.id,
+          title: currentFlavor.id,
+          url: currentFlavor.url,
+        };
+      }) || [];
+    setImages(mediasFlavors);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentFlavorId]);
 

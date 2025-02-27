@@ -1,5 +1,7 @@
 'use client';
 
+import { use } from 'react';
+
 import clsx from 'clsx';
 
 import { Line } from '@/components/data-display/line';
@@ -7,14 +9,15 @@ import { Loading } from '@/components/data-display/loading';
 import { Slider } from '@/components/data-display/slider';
 import { Tag } from '@/components/data-display/tag';
 
+import { AdditionalsList } from './_components/additionals-list';
+import { ButtonBack } from './_components/button-back/button-back';
+import { FlavorsDetails } from './_components/flavors-details/flavors-details';
+import { SpecsDetails } from './_components/specs-details/specs-details';
 import { DishIdParams } from './dish-id.types';
 import { useDishId } from './use-dish-id';
-import { AdditionalsList } from '@/app/dish/[dishId]/_components/additionals-list';
-import { ButtonBack } from '@/app/dish/[dishId]/_components/button-back/button-back';
-import { FlavorsDetails } from '@/app/dish/[dishId]/_components/flavors-details/flavors-details';
-import { SpecsDetails } from '@/app/dish/[dishId]/_components/specs-details/specs-details';
 
 export default function Page({ params }: DishIdParams) {
+  const { dishId } = use(params);
   const {
     images,
     hasHighlighted,
@@ -25,46 +28,46 @@ export default function Page({ params }: DishIdParams) {
     setCurrentFlavorId,
     price,
     setPrice,
-  } = useDishId({ params });
+  } = useDishId(dishId);
 
   return (
-    <div className="z-0 relative pb-6">
-      <ButtonBack className="absolute left-5 top-7 z-40" />
+    <div className='relative z-0 pb-6'>
+      <ButtonBack className='absolute top-7 left-5 z-40' />
 
       {images?.length > 0 && <Slider images={images} />}
 
       {hasHighlighted && (
-        <div className="bg-brand-primary z-40 absolute top-8 right-0 text-chip-title-active text-lg w-fit h-8 flex items-center justify-center px-4 rounded-tl-md rounded-bl-md mx-auto">
+        <div className='bg-brand-primary text-chip-title-active absolute top-8 right-0 z-40 mx-auto flex h-8 w-fit items-center justify-center rounded-tl-md rounded-bl-md px-4 text-lg'>
           {hasHighlighted.DishSpecs.title}
         </div>
       )}
 
       <div
         className={clsx(
-          'flex flex-col z-[999] rounded-t-2xl shadow-[0px_-13px_45px_-36px_#0d0d0d] bg-white',
+          'z-[999] flex flex-col rounded-t-2xl bg-white shadow-[0px_-13px_45px_-36px_#0d0d0d]',
           {
             '-mt-4': images?.length > 0,
-          },
+          }
         )}
       >
         <div
-          className={clsx('pt-2 px-6', {
+          className={clsx('px-6 pt-2', {
             'mt-3': images && images.length == 0,
           })}
         >
-          <div className="flex justify-between items-center pb-2">
+          <div className='flex items-center justify-between pb-2'>
             <Loading
               isLoading={isLoading}
               fallback={
-                <div className="mx-auto mt-1 bg-slate-200 w-40 animate-pulse h-[1.375rem] rounded-xl" />
+                <div className='mx-auto mt-1 h-[1.375rem] w-40 animate-pulse rounded-xl bg-slate-200' />
               }
             >
               <h2
                 className={clsx(
-                  'font-secondary font-bold text-2xl text-title-default',
+                  'font-secondary text-title-default text-2xl font-bold',
                   {
                     'pl-11': images && images.length === 0,
-                  },
+                  }
                 )}
               >
                 {dish?.title}
@@ -72,11 +75,11 @@ export default function Page({ params }: DishIdParams) {
             </Loading>
 
             {dish?.price && (
-              <div className="flex flex-col gap-1 shrink-0 justify-end items-end">
+              <div className='flex shrink-0 flex-col items-end justify-end gap-1'>
                 <Loading
                   isLoading={isLoading}
                   fallback={
-                    <div className="bg-slate-200 w-24 animate-pulse h-[1.375rem] rounded-xl" />
+                    <div className='h-[1.375rem] w-24 animate-pulse rounded-xl bg-slate-200' />
                   }
                 >
                   {dish.portion && (
@@ -86,7 +89,7 @@ export default function Page({ params }: DishIdParams) {
                   )}
                 </Loading>
 
-                <span className="font-extrabold">
+                <span className='font-extrabold'>
                   R$
                   {' ' +
                     new Intl.NumberFormat('pt-BR', {
@@ -99,34 +102,34 @@ export default function Page({ params }: DishIdParams) {
           </div>
 
           {images?.length === 0 && hasHighlighted && (
-            <div className="bg-brand-primary text-chip-title-active text-lg w-fit h-8 flex items-center justify-center px-4 rounded-md mx-auto">
+            <div className='bg-brand-primary text-chip-title-active mx-auto flex h-8 w-fit items-center justify-center rounded-md px-4 text-lg'>
               {hasHighlighted.DishSpecs.title}
             </div>
           )}
 
           {images?.length > 0 && <Line />}
         </div>
-        <div className="flex gap-4 flex-col overflow-y-auto px-6 pb-4 pt-4">
+        <div className='flex flex-col gap-4 overflow-y-auto px-6 pt-4 pb-4'>
           {/* Description */}
           <Loading
             isLoading={isLoading}
             fallback={
               <div>
-                <div className="mt-4 h-4 bg-slate-200 w-full rounded-xl animate-pulse" />
-                <div className="mt-1 h-4 bg-slate-200 w-full rounded-xl animate-pulse" />
-                <div className="mt-1 h-4 bg-slate-200 w-full rounded-xl animate-pulse" />
+                <div className='mt-4 h-4 w-full animate-pulse rounded-xl bg-slate-200' />
+                <div className='mt-1 h-4 w-full animate-pulse rounded-xl bg-slate-200' />
+                <div className='mt-1 h-4 w-full animate-pulse rounded-xl bg-slate-200' />
               </div>
             }
           >
             {dish?.description && (
-              <p className="text-text-default">{dish.description}</p>
+              <p className='text-text-default'>{dish.description}</p>
             )}
           </Loading>
           {/* Specs */}
           <Loading
             isLoading={isLoading}
             fallback={
-              <div className="h-[2.125rem] bg-slate-200 w-full rounded-full animate-pulse" />
+              <div className='h-[2.125rem] w-full animate-pulse rounded-full bg-slate-200' />
             }
           >
             {dish?.dishSpecs?.length > 0 && (
@@ -138,11 +141,11 @@ export default function Page({ params }: DishIdParams) {
             isLoading={isLoading}
             fallback={
               <div>
-                <div className="h-4 mt-4 bg-slate-200 w-16 rounded-xl animate-pulse" />
-                <div className="flex gap-2 mt-2">
-                  <div className="h-8 bg-slate-200 w-24 rounded-full animate-pulse" />
-                  <div className="h-8 bg-slate-200 w-36 rounded-full animate-pulse" />
-                  <div className="h-8 bg-slate-200 w-44 rounded-full animate-pulse" />
+                <div className='mt-4 h-4 w-16 animate-pulse rounded-xl bg-slate-200' />
+                <div className='mt-2 flex gap-2'>
+                  <div className='h-8 w-24 animate-pulse rounded-full bg-slate-200' />
+                  <div className='h-8 w-36 animate-pulse rounded-full bg-slate-200' />
+                  <div className='h-8 w-44 animate-pulse rounded-full bg-slate-200' />
                 </div>
               </div>
             }
@@ -160,7 +163,7 @@ export default function Page({ params }: DishIdParams) {
           <Loading isLoading={isLoading} fallback={<></>}>
             {dish?.dishExtras?.length > 0 && (
               <div>
-                <h2 className="font-secondary text-title-default font-medium pb-1">
+                <h2 className='font-secondary text-title-default pb-1 font-medium'>
                   Adicionais
                 </h2>
                 <AdditionalsList
@@ -176,20 +179,20 @@ export default function Page({ params }: DishIdParams) {
             isLoading={isLoading}
             fallback={
               <div>
-                <div className="h-4 mt-4 bg-slate-200 w-32 rounded-xl animate-pulse" />
-                <div className="mt-2 h-3 bg-slate-200 w-9/12 rounded-xl animate-pulse" />
-                <div className="mt-2 h-3 bg-slate-200 w-11/12 rounded-xl animate-pulse" />
-                <div className="mt-2 h-3 bg-slate-200 w-10/12 rounded-xl animate-pulse" />
-                <div className="mt-2 h-3 bg-slate-200 w-9/12 rounded-xl animate-pulse" />
+                <div className='mt-4 h-4 w-32 animate-pulse rounded-xl bg-slate-200' />
+                <div className='mt-2 h-3 w-9/12 animate-pulse rounded-xl bg-slate-200' />
+                <div className='mt-2 h-3 w-11/12 animate-pulse rounded-xl bg-slate-200' />
+                <div className='mt-2 h-3 w-10/12 animate-pulse rounded-xl bg-slate-200' />
+                <div className='mt-2 h-3 w-9/12 animate-pulse rounded-xl bg-slate-200' />
               </div>
             }
           >
             {dish?.section?.description && (
               <div>
-                <h2 className="font-secondary text-title-default font-medium">
+                <h2 className='font-secondary text-title-default font-medium'>
                   Observações
                 </h2>
-                <p className="text-sm text-text-default">
+                <p className='text-text-default text-sm'>
                   {dish.section.description}
                 </p>
               </div>

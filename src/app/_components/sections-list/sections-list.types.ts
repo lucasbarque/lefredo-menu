@@ -1,7 +1,8 @@
-import { SectionProps } from '@/app/api/sections/sections.types';
+import { GetSectionsDTO } from '@/http/api';
 
 export interface SectionsListProps {
-  sections: SectionProps[];
+  sections: GetSectionsDTO[];
+  restaurant: string;
   currentSection: string;
 }
 

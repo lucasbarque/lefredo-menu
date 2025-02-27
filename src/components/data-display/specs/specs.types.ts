@@ -1,5 +1,5 @@
-import { DishSpecs } from '@/app/api/dish/[id]/dish.types';
+import { DishSpecsDTO } from '@/http/api';
 
 export interface SpecProps {
-  specs: DishSpecs[];
+  specs: DishSpecsDTO[];
 }
