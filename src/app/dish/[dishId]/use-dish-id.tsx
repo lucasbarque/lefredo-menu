@@ -1,16 +1,11 @@
 import { useEffect, useState } from 'react';
 
-import { getDishDetailsById } from '@/actions/dishes.action';
-import {
-  DishMediasDTO,
-  DishSpecKey,
-  DishSpecsDTO,
-  GetDishDTO,
-} from '@/http/api';
+import { getDishByIdAPI } from '@/actions/dishes.action';
+import { DishDTO, DishMediasDTO, DishSpecKey, DishSpecsDTO } from '@/http/api';
 import { notFound } from 'next/navigation';
 
 export function useDishId(id: string) {
-  const [dish, setDish] = useState<GetDishDTO>({} as GetDishDTO);
+  const [dish, setDish] = useState<DishDTO>({} as DishDTO);
   const [isLoading, setIsLoading] = useState(true);
   const [images, setImages] = useState<DishMediasDTO[]>([]);
   const [price, setPrice] = useState(0);
@@ -19,14 +14,16 @@ export function useDishId(id: string) {
 
   useEffect(() => {
     (async () => {
-      const { data: dataAPI } = await getDishDetailsById(id);
-      if (!dataAPI) {
-        notFound();
+      const responseDishes = await getDishByIdAPI(id);
+      if (responseDishes.status === 404) {
+        return notFound();
       }
-
-      if (dataAPI.dishMedias.length > 0 && dataAPI.dishFlavors.length === 0) {
+      if (
+        responseDishes.data.dishMedias?.length > 0 &&
+        responseDishes.data.dishFlavors === null
+      ) {
         setImages(
-          dataAPI.dishMedias.map((image) => {
+          responseDishes.data.dishMedias.map((image) => {
             return {
               id: image.id,
               title: image.id,
@@ -36,15 +33,18 @@ export function useDishId(id: string) {
         );
       }
 
-      const hasHighlighted = dataAPI?.dishSpecs.find(
-        (spec) => spec.DishSpecs.key === DishSpecKey.highlited
+      const hasHighlighted = responseDishes.data?.dishSpecs.find(
+        (spec) => spec.DishSpecs.key === DishSpecKey.highlighted
       );
       setHasHighlighted(hasHighlighted);
-      setDish(dataAPI);
-      setPrice(dataAPI.price);
+      setDish(responseDishes.data);
+      setPrice(responseDishes.data.price);
       setIsLoading(false);
-      if (dataAPI.dishFlavors.length > 0) {
-        setCurrentFlavorId(dataAPI.dishFlavors[0].id);
+      if (
+        responseDishes.data.dishFlavors &&
+        responseDishes.data.dishFlavors.length > 0
+      ) {
+        setCurrentFlavorId(responseDishes.data.dishFlavors[0].id);
       }
     })();
   }, []);

@@ -7,7 +7,7 @@ export function Specs({ specs }: SpecProps) {
   return (
     <div className='absolute top-3 right-0 flex flex-col items-end gap-2'>
       {specs.map((spec) => {
-        if (spec.DishSpecs.key === DishSpecKey.highlited) {
+        if (spec.DishSpecs.key === DishSpecKey.highlighted) {
           return (
             <div
               key={spec.DishSpecs.id}

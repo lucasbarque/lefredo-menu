@@ -1,10 +1,10 @@
 import { Dispatch, SetStateAction } from 'react';
 
-import { DishExtras } from '../../../../api/dish/[id]/dish.types';
+import { DishExtraDTO } from '@/http/api';
 
 export interface AdditionalsListProps {
   dishPrice: number;
-  dishExtras: DishExtras[];
+  dishExtras: DishExtraDTO[];
   setPrice: Dispatch<SetStateAction<number>>;
 }
 

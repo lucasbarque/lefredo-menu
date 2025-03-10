@@ -1,16 +1,16 @@
 import { Dispatch, SetStateAction } from 'react';
 
-import { DishDetails, DishFlavors } from '../../../../api/dish/[id]/dish.types';
+import { DishDTO, DishFlavorsDTO } from '@/http/api';
 
 export interface FlavorsDetailsProps {
-  dishFlavors: DishFlavors[];
-  changeDish: Dispatch<SetStateAction<DishDetails>>;
+  dishFlavors: DishFlavorsDTO[];
+  changeDish: Dispatch<SetStateAction<DishDTO>>;
   currentFlavorId: string;
   setCurrentFlavorId: Dispatch<SetStateAction<string>>;
 }
 
 export interface useFlavorsDetailsProps {
-  dishFlavors: DishFlavors[];
+  dishFlavors: DishFlavorsDTO[];
   currentFlavorId: string;
-  changeDish: Dispatch<SetStateAction<DishDetails>>;
+  changeDish: Dispatch<SetStateAction<DishDTO>>;
 }
