@@ -23,7 +23,6 @@ export default async function Home({ params, searchParams }: PageHomeParams) {
   const { data: restaurantData } = await getRestaurant(restaurant);
 
   const sections = await getSectionsByMenuId({
-    // @ts-ignore
     menuId: restaurantData.Menu[0].id,
   });
 
