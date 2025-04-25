@@ -5,6 +5,25 @@
  * Confira todas as rotas disponíveis
  * OpenAPI spec version: 1.0
  */
+export type GetUserByRestaurantIdRole = typeof GetUserByRestaurantIdRole[keyof typeof GetUserByRestaurantIdRole];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const GetUserByRestaurantIdRole = {
+  ADMIN: 'ADMIN',
+} as const;
+
+export interface GetUserByRestaurantId {
+  id: string;
+  name: string;
+  email: string;
+  clerkId: string;
+  active: boolean;
+  role: GetUserByRestaurantIdRole;
+  onboardingFinished: boolean;
+  restaurantId: string;
+}
+
 export interface CreateUserDTO {
   name: string;
 }
@@ -13,17 +32,20 @@ export interface CreateMenuDTO { [key: string]: unknown }
 
 export interface UpdateMenuDTO { [key: string]: unknown }
 
-export interface Section {
+export interface SectionDTO {
+  id: string;
+  title: string;
   description: string;
+  slug: string;
 }
 
-export interface DishExtrasDTO {
+export interface DishExtraDTO {
   id: string;
   title: string;
   price: number;
 }
 
-export interface DishFlavorsMedias {
+export interface DishFlavorsMediaDTO {
   id: string;
   title: string;
   url: string;
@@ -33,9 +55,9 @@ export interface DishFlavorsDTO {
   id: string;
   title: string;
   label: string;
+  price: number;
   description: string;
-  dishId: string;
-  dishFlavorsMedias: DishFlavorsMedias[];
+  dishFlavorsMedias: DishFlavorsMediaDTO[];
 }
 
 export interface DishMediasDTO {
@@ -49,16 +71,23 @@ export type DishSpecKey = typeof DishSpecKey[keyof typeof DishSpecKey];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const DishSpecKey = {
+  vegetarian: 'vegetarian',
+  lactfree: 'lactfree',
+  vegan: 'vegan',
   cold: 'cold',
   hot: 'hot',
-  vegan: 'vegan',
-  highlited: 'highlited',
+  organic: 'organic',
+  suggarfree: 'suggarfree',
+  natural: 'natural',
+  highlighted: 'highlighted',
 } as const;
 
 export interface DishSpec {
   id: string;
   title: string;
   key: DishSpecKey;
+  /** @nullable */
+  description: string | null;
 }
 
 export interface DishSpecsDTO {
@@ -67,21 +96,22 @@ export interface DishSpecsDTO {
   DishSpecs: DishSpec;
 }
 
-export interface GetDishDTO {
+export interface DishDTO {
   id: string;
   title: string;
   description: string;
   price: number;
   portion: string;
   prepTime: string;
-  section: Section;
-  dishExtras: DishExtrasDTO[];
+  section: SectionDTO;
+  dishExtras: DishExtraDTO[];
   dishFlavors: DishFlavorsDTO[];
   dishMedias: DishMediasDTO[];
   dishSpecs: DishSpecsDTO[];
+  dishExtrasOrder: string[];
 }
 
-export interface GetDishesDTO {
+export interface ResponseGetDishesDTO {
   id: string;
   title: string;
   price: number;
@@ -91,7 +121,154 @@ export interface GetDishesDTO {
   dishMedias: DishMediasDTO[];
 }
 
-export interface CreateDishDTO { [key: string]: unknown }
+export interface RequestCreateDishDTO {
+  title: string;
+  portion: string;
+  price: string;
+  /** @nullable */
+  prepTime: string | null;
+  flagged: string;
+  /** @nullable */
+  description: string | null;
+  sectionId: string;
+}
+
+export interface ResponseCreateDishDTO {
+  id: string;
+}
+
+export interface RequestUpdateDishDTO {
+  title: string;
+  portion: string;
+  price: string;
+  /** @nullable */
+  prepTime: string | null;
+  flagged: string;
+  /** @nullable */
+  description: string | null;
+}
+
+export interface RequestChangePriceDTO {
+  price: number;
+}
+
+export interface RequestUpdateDishExtrasOrderDTO {
+  orderUpdated: string[];
+}
+
+export interface RequestUpdateDishFlavorsOrderDTO {
+  orderUpdated: string[];
+}
+
+export interface RequestUploadDishImageDTO {
+  file: string;
+}
+
+export interface ResponseUploadDishImageDTO {
+  id: string;
+  title: string;
+  url: string;
+}
+
+export interface ResponseGetDishExtraDTO {
+  id: string;
+  title: string;
+  price: number;
+}
+
+export interface RequestCreateDishExtraDTO {
+  title: string;
+  price: string;
+}
+
+export interface ResponseCreateDishExtraDTO {
+  id: string;
+  title: string;
+  price: number;
+  dishId: string;
+}
+
+export interface RequestUpdateDishExtraDTO {
+  title: string;
+  price: string;
+}
+
+export type RequestDishSpecsToggleDTOKey = typeof RequestDishSpecsToggleDTOKey[keyof typeof RequestDishSpecsToggleDTOKey];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const RequestDishSpecsToggleDTOKey = {
+  vegetarian: 'vegetarian',
+  lactfree: 'lactfree',
+  vegan: 'vegan',
+  cold: 'cold',
+  hot: 'hot',
+  organic: 'organic',
+  suggarfree: 'suggarfree',
+  natural: 'natural',
+  highlighted: 'highlighted',
+} as const;
+
+export interface RequestDishSpecsToggleDTO {
+  key: RequestDishSpecsToggleDTOKey;
+}
+
+export type ResponseDishSpecsToggleDTOKey = typeof ResponseDishSpecsToggleDTOKey[keyof typeof ResponseDishSpecsToggleDTOKey];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const ResponseDishSpecsToggleDTOKey = {
+  vegetarian: 'vegetarian',
+  lactfree: 'lactfree',
+  vegan: 'vegan',
+  cold: 'cold',
+  hot: 'hot',
+  organic: 'organic',
+  suggarfree: 'suggarfree',
+  natural: 'natural',
+  highlighted: 'highlighted',
+} as const;
+
+export interface ResponseDishSpecsToggleDTO {
+  key: ResponseDishSpecsToggleDTOKey;
+  oldStateIsActive: boolean;
+  newStateIsActive: boolean;
+}
+
+export interface RequestCreateDishesFlavorsDTO {
+  title: string;
+  label: string;
+  /** @nullable */
+  price: string | null;
+  /** @nullable */
+  description: string | null;
+}
+
+export interface ResponseCreateDishesFlavorsDTO {
+  id: string;
+  title: string;
+  price: number;
+  dishId: string;
+}
+
+export interface RequestUpdateDishesFlavorsDTO {
+  title: string;
+  label: string;
+  /** @nullable */
+  price: string | null;
+  /** @nullable */
+  description: string | null;
+}
+
+export interface RequestUploadDishFlavorImageDTO {
+  file: string;
+}
+
+export interface ResponseUploadDishFlavorImageDTO {
+  id: string;
+  title: string;
+  url: string;
+}
 
 export interface GetRestaurantBySlugDTO {
   id: string;
@@ -122,16 +299,55 @@ export interface ChangeLogoResponseDTO {
   logo: string;
 }
 
+export interface GetRestaurantIsFirstCategoryDTO {
+  isFirstCategory: boolean;
+}
+
 export interface CreateResturantDTO { [key: string]: unknown }
 
-export interface GetSectionsDTO {
+export interface Dish {
   id: string;
   title: string;
   description: string;
-  slug: string;
+  price: number;
+  portion: string;
+  /** @nullable */
+  prepTime: string | null;
+  dishMedias: DishMediasDTO[];
+  isActive: boolean;
 }
 
-export interface CreateSectionDTO { [key: string]: unknown }
+export interface ResponseGetSectionsWithItemsDTO {
+  id: string;
+  title: string;
+  /** @nullable */
+  description: string | null;
+  slug: string;
+  Dish: Dish[];
+  isActive: boolean;
+}
+
+export interface ResponseGetSectionByIdDTO {
+  id: string;
+  title: string;
+  /** @nullable */
+  description: string | null;
+  slug: string;
+  isActive: boolean;
+}
+
+export interface RequestCreateSectionDTO {
+  title: string;
+  menuId: string;
+  /** @nullable */
+  description: string | null;
+}
+
+export interface RequestUpdateSectionDTO {
+  title: string;
+  /** @nullable */
+  description: string | null;
+}
 
 export type MenusControllerGetByRestaurantParams = {
 restaurantId: string;
@@ -149,6 +365,78 @@ restaurantId: string;
 export type GetSectionsParams = {
 menuId: string;
 };
+
+export type GetSectionsWithItemsParams = {
+menuId: string;
+};
+
+
+
+/**
+ * @summary Get user by restaurantId
+ */
+export type getUserByRestaurantIdResponse = {
+  data: GetUserByRestaurantId;
+  status: number;
+  headers: Headers;
+}
+
+export const getGetUserByRestaurantIdUrl = (restaurantId: string,) => {
+
+
+  return `http://localhost:3333/users/restaurant/${restaurantId}`
+}
+
+export const getUserByRestaurantId = async (restaurantId: string, options?: RequestInit): Promise<getUserByRestaurantIdResponse> => {
+  
+  const res = await fetch(getGetUserByRestaurantIdUrl(restaurantId),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text()
+  const data: getUserByRestaurantIdResponse['data'] = body ? JSON.parse(body) : {}
+
+  return { data, status: res.status, headers: res.headers } as getUserByRestaurantIdResponse
+}
+
+
+
+/**
+ * @summary Change onboarding status
+ */
+export type changeOnboardingStatusResponse = {
+  data: void;
+  status: number;
+  headers: Headers;
+}
+
+export const getChangeOnboardingStatusUrl = (id: string,) => {
+
+
+  return `http://localhost:3333/users/change-onboarding-status/${id}`
+}
+
+export const changeOnboardingStatus = async (id: string, options?: RequestInit): Promise<changeOnboardingStatusResponse> => {
+  
+  const res = await fetch(getChangeOnboardingStatusUrl(id),
+  {      
+    ...options,
+    method: 'PATCH'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text()
+  const data: changeOnboardingStatusResponse['data'] = body ? JSON.parse(body) : {}
+
+  return { data, status: res.status, headers: res.headers } as changeOnboardingStatusResponse
+}
 
 
 
@@ -359,7 +647,7 @@ export const menusControllerUpdate = async (id: string,
  * @summary Get Dish By Id
  */
 export type getDishByIdResponse = {
-  data: GetDishDTO;
+  data: DishDTO;
   status: number;
   headers: Headers;
 }
@@ -389,21 +677,60 @@ export const getDishById = async (id: string, options?: RequestInit): Promise<ge
 
 
 
-export type dishesControllerDeleteResponse = {
-  data: void;
+/**
+ * @summary Update Dish
+ */
+export type updateDishResponse = {
+  data: ResponseCreateDishDTO;
   status: number;
   headers: Headers;
 }
 
-export const getDishesControllerDeleteUrl = (id: string,) => {
+export const getUpdateDishUrl = (id: string,) => {
 
 
   return `http://localhost:3333/dishes/${id}`
 }
 
-export const dishesControllerDelete = async (id: string, options?: RequestInit): Promise<dishesControllerDeleteResponse> => {
+export const updateDish = async (id: string,
+    requestUpdateDishDTO: RequestUpdateDishDTO, options?: RequestInit): Promise<updateDishResponse> => {
   
-  const res = await fetch(getDishesControllerDeleteUrl(id),
+  const res = await fetch(getUpdateDishUrl(id),
+  {      
+    ...options,
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      requestUpdateDishDTO,)
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text()
+  const data: updateDishResponse['data'] = body ? JSON.parse(body) : {}
+
+  return { data, status: res.status, headers: res.headers } as updateDishResponse
+}
+
+
+
+/**
+ * @summary Delete dish
+ */
+export type deleteDishResponse = {
+  data: void;
+  status: number;
+  headers: Headers;
+}
+
+export const getDeleteDishUrl = (id: string,) => {
+
+
+  return `http://localhost:3333/dishes/${id}`
+}
+
+export const deleteDish = async (id: string, options?: RequestInit): Promise<deleteDishResponse> => {
+  
+  const res = await fetch(getDeleteDishUrl(id),
   {      
     ...options,
     method: 'DELETE'
@@ -413,9 +740,43 @@ export const dishesControllerDelete = async (id: string, options?: RequestInit):
 )
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text()
-  const data: dishesControllerDeleteResponse['data'] = body ? JSON.parse(body) : {}
+  const data: deleteDishResponse['data'] = body ? JSON.parse(body) : {}
 
-  return { data, status: res.status, headers: res.headers } as dishesControllerDeleteResponse
+  return { data, status: res.status, headers: res.headers } as deleteDishResponse
+}
+
+
+
+/**
+ * @summary Get Dishes
+ */
+export type getDishesBySlugResponse = {
+  data: ResponseGetDishesDTO[];
+  status: number;
+  headers: Headers;
+}
+
+export const getGetDishesBySlugUrl = (slug: string,) => {
+
+
+  return `http://localhost:3333/dishes/slug/${slug}`
+}
+
+export const getDishesBySlug = async (slug: string, options?: RequestInit): Promise<getDishesBySlugResponse> => {
+  
+  const res = await fetch(getGetDishesBySlugUrl(slug),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text()
+  const data: getDishesBySlugResponse['data'] = body ? JSON.parse(body) : {}
+
+  return { data, status: res.status, headers: res.headers } as getDishesBySlugResponse
 }
 
 
@@ -424,7 +785,7 @@ export const dishesControllerDelete = async (id: string, options?: RequestInit):
  * @summary Get Dishes
  */
 export type getDishesBySectionIdResponse = {
-  data: GetDishesDTO[];
+  data: ResponseGetDishesDTO[];
   status: number;
   headers: Headers;
 }
@@ -461,56 +822,273 @@ export const getDishesBySectionId = async (params: GetDishesBySectionIdParams, o
 
 
 
-export type dishesControllerCreateResponse = {
-  data: void;
+/**
+ * @summary Create Dish
+ */
+export type createDishResponse = {
+  data: ResponseCreateDishDTO;
   status: number;
   headers: Headers;
 }
 
-export const getDishesControllerCreateUrl = () => {
+export const getCreateDishUrl = () => {
 
 
   return `http://localhost:3333/dishes`
 }
 
-export const dishesControllerCreate = async (createDishDTO: CreateDishDTO, options?: RequestInit): Promise<dishesControllerCreateResponse> => {
+export const createDish = async (requestCreateDishDTO: RequestCreateDishDTO, options?: RequestInit): Promise<createDishResponse> => {
   
-  const res = await fetch(getDishesControllerCreateUrl(),
+  const res = await fetch(getCreateDishUrl(),
   {      
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(
-      createDishDTO,)
+      requestCreateDishDTO,)
   }
 )
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text()
-  const data: dishesControllerCreateResponse['data'] = body ? JSON.parse(body) : {}
+  const data: createDishResponse['data'] = body ? JSON.parse(body) : {}
 
-  return { data, status: res.status, headers: res.headers } as dishesControllerCreateResponse
+  return { data, status: res.status, headers: res.headers } as createDishResponse
 }
 
 
 
 /**
- * @summary Get Dishes
+ * @summary Toggle Section
  */
-export type getDishesBySlugResponse = {
-  data: GetDishesDTO[];
+export type toggleDishResponse = {
+  data: void;
   status: number;
   headers: Headers;
 }
 
-export const getGetDishesBySlugUrl = (slug: string,) => {
+export const getToggleDishUrl = (id: string,) => {
 
 
-  return `http://localhost:3333/dishes/slug/${slug}`
+  return `http://localhost:3333/dishes/toggle/${id}`
 }
 
-export const getDishesBySlug = async (slug: string, options?: RequestInit): Promise<getDishesBySlugResponse> => {
+export const toggleDish = async (id: string, options?: RequestInit): Promise<toggleDishResponse> => {
   
-  const res = await fetch(getGetDishesBySlugUrl(slug),
+  const res = await fetch(getToggleDishUrl(id),
+  {      
+    ...options,
+    method: 'PATCH'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text()
+  const data: toggleDishResponse['data'] = body ? JSON.parse(body) : {}
+
+  return { data, status: res.status, headers: res.headers } as toggleDishResponse
+}
+
+
+
+/**
+ * @summary Change Price
+ */
+export type changePriceResponse = {
+  data: void;
+  status: number;
+  headers: Headers;
+}
+
+export const getChangePriceUrl = (id: string,) => {
+
+
+  return `http://localhost:3333/dishes/change-price/${id}`
+}
+
+export const changePrice = async (id: string,
+    requestChangePriceDTO: RequestChangePriceDTO, options?: RequestInit): Promise<changePriceResponse> => {
+  
+  const res = await fetch(getChangePriceUrl(id),
+  {      
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      requestChangePriceDTO,)
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text()
+  const data: changePriceResponse['data'] = body ? JSON.parse(body) : {}
+
+  return { data, status: res.status, headers: res.headers } as changePriceResponse
+}
+
+
+
+/**
+ * @summary Update Dish Extras Order
+ */
+export type updateDishExtrasOrderResponse = {
+  data: void;
+  status: number;
+  headers: Headers;
+}
+
+export const getUpdateDishExtrasOrderUrl = (id: string,) => {
+
+
+  return `http://localhost:3333/dishes/update-dish-extras-order/${id}`
+}
+
+export const updateDishExtrasOrder = async (id: string,
+    requestUpdateDishExtrasOrderDTO: RequestUpdateDishExtrasOrderDTO, options?: RequestInit): Promise<updateDishExtrasOrderResponse> => {
+  
+  const res = await fetch(getUpdateDishExtrasOrderUrl(id),
+  {      
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      requestUpdateDishExtrasOrderDTO,)
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text()
+  const data: updateDishExtrasOrderResponse['data'] = body ? JSON.parse(body) : {}
+
+  return { data, status: res.status, headers: res.headers } as updateDishExtrasOrderResponse
+}
+
+
+
+/**
+ * @summary Update Dish Flavors Order
+ */
+export type updateDishFlavorsOrderResponse = {
+  data: void;
+  status: number;
+  headers: Headers;
+}
+
+export const getUpdateDishFlavorsOrderUrl = (id: string,) => {
+
+
+  return `http://localhost:3333/dishes/update-dish-flavors-order/${id}`
+}
+
+export const updateDishFlavorsOrder = async (id: string,
+    requestUpdateDishFlavorsOrderDTO: RequestUpdateDishFlavorsOrderDTO, options?: RequestInit): Promise<updateDishFlavorsOrderResponse> => {
+  
+  const res = await fetch(getUpdateDishFlavorsOrderUrl(id),
+  {      
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      requestUpdateDishFlavorsOrderDTO,)
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text()
+  const data: updateDishFlavorsOrderResponse['data'] = body ? JSON.parse(body) : {}
+
+  return { data, status: res.status, headers: res.headers } as updateDishFlavorsOrderResponse
+}
+
+
+
+/**
+ * @summary Upload dish image
+ */
+export type uploadDishImageResponse = {
+  data: ResponseUploadDishImageDTO;
+  status: number;
+  headers: Headers;
+}
+
+export const getUploadDishImageUrl = (id: string,) => {
+
+
+  return `http://localhost:3333/dishes/${id}/upload-image`
+}
+
+export const uploadDishImage = async (id: string,
+    requestUploadDishImageDTO: RequestUploadDishImageDTO, options?: RequestInit): Promise<uploadDishImageResponse> => {
+    const formData = new FormData();
+formData.append('file', requestUploadDishImageDTO.file)
+
+  const res = await fetch(getUploadDishImageUrl(id),
+  {      
+    ...options,
+    method: 'PATCH'
+    ,
+    body: 
+      formData,
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text()
+  const data: uploadDishImageResponse['data'] = body ? JSON.parse(body) : {}
+
+  return { data, status: res.status, headers: res.headers } as uploadDishImageResponse
+}
+
+
+
+/**
+ * @summary Delete Dish image
+ */
+export type deleteDishImageResponse = {
+  data: void;
+  status: number;
+  headers: Headers;
+}
+
+export const getDeleteDishImageUrl = (id: string,) => {
+
+
+  return `http://localhost:3333/dishes/delete-image/${id}`
+}
+
+export const deleteDishImage = async (id: string, options?: RequestInit): Promise<deleteDishImageResponse> => {
+  
+  const res = await fetch(getDeleteDishImageUrl(id),
+  {      
+    ...options,
+    method: 'DELETE'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text()
+  const data: deleteDishImageResponse['data'] = body ? JSON.parse(body) : {}
+
+  return { data, status: res.status, headers: res.headers } as deleteDishImageResponse
+}
+
+
+
+/**
+ * @summary Get Dishes Extras
+ */
+export type getDishesExtrasResponse = {
+  data: ResponseGetDishExtraDTO[];
+  status: number;
+  headers: Headers;
+}
+
+export const getGetDishesExtrasUrl = (dishId: string,) => {
+
+
+  return `http://localhost:3333/dishes-extras/${dishId}`
+}
+
+export const getDishesExtras = async (dishId: string, options?: RequestInit): Promise<getDishesExtrasResponse> => {
+  
+  const res = await fetch(getGetDishesExtrasUrl(dishId),
   {      
     ...options,
     method: 'GET'
@@ -520,9 +1098,397 @@ export const getDishesBySlug = async (slug: string, options?: RequestInit): Prom
 )
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text()
-  const data: getDishesBySlugResponse['data'] = body ? JSON.parse(body) : {}
+  const data: getDishesExtrasResponse['data'] = body ? JSON.parse(body) : {}
 
-  return { data, status: res.status, headers: res.headers } as getDishesBySlugResponse
+  return { data, status: res.status, headers: res.headers } as getDishesExtrasResponse
+}
+
+
+
+/**
+ * @summary Create Dish Extra
+ */
+export type createDishesExtraResponse = {
+  data: ResponseCreateDishExtraDTO[];
+  status: number;
+  headers: Headers;
+}
+
+export const getCreateDishesExtraUrl = (dishId: string,) => {
+
+
+  return `http://localhost:3333/dishes-extras/${dishId}`
+}
+
+export const createDishesExtra = async (dishId: string,
+    requestCreateDishExtraDTO: RequestCreateDishExtraDTO, options?: RequestInit): Promise<createDishesExtraResponse> => {
+  
+  const res = await fetch(getCreateDishesExtraUrl(dishId),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      requestCreateDishExtraDTO,)
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text()
+  const data: createDishesExtraResponse['data'] = body ? JSON.parse(body) : {}
+
+  return { data, status: res.status, headers: res.headers } as createDishesExtraResponse
+}
+
+
+
+/**
+ * @summary Update Dish Extra
+ */
+export type updateDishesExtraResponse = {
+  data: void;
+  status: number;
+  headers: Headers;
+}
+
+export const getUpdateDishesExtraUrl = (id: string,) => {
+
+
+  return `http://localhost:3333/dishes-extras/${id}`
+}
+
+export const updateDishesExtra = async (id: string,
+    requestUpdateDishExtraDTO: RequestUpdateDishExtraDTO, options?: RequestInit): Promise<updateDishesExtraResponse> => {
+  
+  const res = await fetch(getUpdateDishesExtraUrl(id),
+  {      
+    ...options,
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      requestUpdateDishExtraDTO,)
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text()
+  const data: updateDishesExtraResponse['data'] = body ? JSON.parse(body) : {}
+
+  return { data, status: res.status, headers: res.headers } as updateDishesExtraResponse
+}
+
+
+
+/**
+ * @summary Delete Dish Extra
+ */
+export type deleteDishesExtraResponse = {
+  data: void;
+  status: number;
+  headers: Headers;
+}
+
+export const getDeleteDishesExtraUrl = (id: string,) => {
+
+
+  return `http://localhost:3333/dishes-extras/${id}`
+}
+
+export const deleteDishesExtra = async (id: string, options?: RequestInit): Promise<deleteDishesExtraResponse> => {
+  
+  const res = await fetch(getDeleteDishesExtraUrl(id),
+  {      
+    ...options,
+    method: 'DELETE'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text()
+  const data: deleteDishesExtraResponse['data'] = body ? JSON.parse(body) : {}
+
+  return { data, status: res.status, headers: res.headers } as deleteDishesExtraResponse
+}
+
+
+
+/**
+ * @summary Get Dishes Specs
+ */
+export type getDishesSpecsResponse = {
+  data: DishSpecsDTO[];
+  status: number;
+  headers: Headers;
+}
+
+export const getGetDishesSpecsUrl = (dishId: string,) => {
+
+
+  return `http://localhost:3333/dishes-specs/${dishId}`
+}
+
+export const getDishesSpecs = async (dishId: string, options?: RequestInit): Promise<getDishesSpecsResponse> => {
+  
+  const res = await fetch(getGetDishesSpecsUrl(dishId),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text()
+  const data: getDishesSpecsResponse['data'] = body ? JSON.parse(body) : {}
+
+  return { data, status: res.status, headers: res.headers } as getDishesSpecsResponse
+}
+
+
+
+/**
+ * @summary Toggle Dish Spec
+ */
+export type toggleDishesSpecResponse = {
+  data: ResponseDishSpecsToggleDTO;
+  status: number;
+  headers: Headers;
+}
+
+export const getToggleDishesSpecUrl = (dishId: string,) => {
+
+
+  return `http://localhost:3333/dishes-specs/${dishId}`
+}
+
+export const toggleDishesSpec = async (dishId: string,
+    requestDishSpecsToggleDTO: RequestDishSpecsToggleDTO, options?: RequestInit): Promise<toggleDishesSpecResponse> => {
+  
+  const res = await fetch(getToggleDishesSpecUrl(dishId),
+  {      
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      requestDishSpecsToggleDTO,)
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text()
+  const data: toggleDishesSpecResponse['data'] = body ? JSON.parse(body) : {}
+
+  return { data, status: res.status, headers: res.headers } as toggleDishesSpecResponse
+}
+
+
+
+/**
+ * @summary Get Dishes Flavors
+ */
+export type getDishesFlavorsResponse = {
+  data: DishFlavorsDTO[];
+  status: number;
+  headers: Headers;
+}
+
+export const getGetDishesFlavorsUrl = (dishId: string,) => {
+
+
+  return `http://localhost:3333/dishes-flavors/${dishId}`
+}
+
+export const getDishesFlavors = async (dishId: string, options?: RequestInit): Promise<getDishesFlavorsResponse> => {
+  
+  const res = await fetch(getGetDishesFlavorsUrl(dishId),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text()
+  const data: getDishesFlavorsResponse['data'] = body ? JSON.parse(body) : {}
+
+  return { data, status: res.status, headers: res.headers } as getDishesFlavorsResponse
+}
+
+
+
+/**
+ * @summary Create Dish Flavors
+ */
+export type createDishesFlavorsResponse = {
+  data: ResponseCreateDishesFlavorsDTO[];
+  status: number;
+  headers: Headers;
+}
+
+export const getCreateDishesFlavorsUrl = (dishId: string,) => {
+
+
+  return `http://localhost:3333/dishes-flavors/${dishId}`
+}
+
+export const createDishesFlavors = async (dishId: string,
+    requestCreateDishesFlavorsDTO: RequestCreateDishesFlavorsDTO, options?: RequestInit): Promise<createDishesFlavorsResponse> => {
+  
+  const res = await fetch(getCreateDishesFlavorsUrl(dishId),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      requestCreateDishesFlavorsDTO,)
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text()
+  const data: createDishesFlavorsResponse['data'] = body ? JSON.parse(body) : {}
+
+  return { data, status: res.status, headers: res.headers } as createDishesFlavorsResponse
+}
+
+
+
+/**
+ * @summary Update Dish Flavors
+ */
+export type updateDishesFlavorsResponse = {
+  data: void;
+  status: number;
+  headers: Headers;
+}
+
+export const getUpdateDishesFlavorsUrl = (id: string,) => {
+
+
+  return `http://localhost:3333/dishes-flavors/${id}`
+}
+
+export const updateDishesFlavors = async (id: string,
+    requestUpdateDishesFlavorsDTO: RequestUpdateDishesFlavorsDTO, options?: RequestInit): Promise<updateDishesFlavorsResponse> => {
+  
+  const res = await fetch(getUpdateDishesFlavorsUrl(id),
+  {      
+    ...options,
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      requestUpdateDishesFlavorsDTO,)
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text()
+  const data: updateDishesFlavorsResponse['data'] = body ? JSON.parse(body) : {}
+
+  return { data, status: res.status, headers: res.headers } as updateDishesFlavorsResponse
+}
+
+
+
+/**
+ * @summary Delete Dish Flavors
+ */
+export type deleteDishesFlavorsResponse = {
+  data: void;
+  status: number;
+  headers: Headers;
+}
+
+export const getDeleteDishesFlavorsUrl = (id: string,) => {
+
+
+  return `http://localhost:3333/dishes-flavors/${id}`
+}
+
+export const deleteDishesFlavors = async (id: string, options?: RequestInit): Promise<deleteDishesFlavorsResponse> => {
+  
+  const res = await fetch(getDeleteDishesFlavorsUrl(id),
+  {      
+    ...options,
+    method: 'DELETE'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text()
+  const data: deleteDishesFlavorsResponse['data'] = body ? JSON.parse(body) : {}
+
+  return { data, status: res.status, headers: res.headers } as deleteDishesFlavorsResponse
+}
+
+
+
+/**
+ * @summary Upload dish flavor image
+ */
+export type uploadDishFlavorImageResponse = {
+  data: ResponseUploadDishFlavorImageDTO;
+  status: number;
+  headers: Headers;
+}
+
+export const getUploadDishFlavorImageUrl = (id: string,) => {
+
+
+  return `http://localhost:3333/dishes-flavors/${id}/upload-image`
+}
+
+export const uploadDishFlavorImage = async (id: string,
+    requestUploadDishFlavorImageDTO: RequestUploadDishFlavorImageDTO, options?: RequestInit): Promise<uploadDishFlavorImageResponse> => {
+    const formData = new FormData();
+formData.append('file', requestUploadDishFlavorImageDTO.file)
+
+  const res = await fetch(getUploadDishFlavorImageUrl(id),
+  {      
+    ...options,
+    method: 'PATCH'
+    ,
+    body: 
+      formData,
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text()
+  const data: uploadDishFlavorImageResponse['data'] = body ? JSON.parse(body) : {}
+
+  return { data, status: res.status, headers: res.headers } as uploadDishFlavorImageResponse
+}
+
+
+
+/**
+ * @summary Delete Dish Flavor Media image
+ */
+export type deleteDishFlavorMediaImageResponse = {
+  data: void;
+  status: number;
+  headers: Headers;
+}
+
+export const getDeleteDishFlavorMediaImageUrl = (id: string,) => {
+
+
+  return `http://localhost:3333/dishes-flavors/delete-image/${id}`
+}
+
+export const deleteDishFlavorMediaImage = async (id: string, options?: RequestInit): Promise<deleteDishFlavorMediaImageResponse> => {
+  
+  const res = await fetch(getDeleteDishFlavorMediaImageUrl(id),
+  {      
+    ...options,
+    method: 'DELETE'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text()
+  const data: deleteDishFlavorMediaImageResponse['data'] = body ? JSON.parse(body) : {}
+
+  return { data, status: res.status, headers: res.headers } as deleteDishFlavorMediaImageResponse
 }
 
 
@@ -774,10 +1740,44 @@ export const deleteLogoRestaurant = async (id: string, options?: RequestInit): P
 
 
 /**
+ * @summary Get restaurant is first category information
+ */
+export type getRestaurantIsFirstCategoryResponse = {
+  data: GetRestaurantIsFirstCategoryDTO;
+  status: number;
+  headers: Headers;
+}
+
+export const getGetRestaurantIsFirstCategoryUrl = (id: string,) => {
+
+
+  return `http://localhost:3333/restaurants/is-first-category/${id}`
+}
+
+export const getRestaurantIsFirstCategory = async (id: string, options?: RequestInit): Promise<getRestaurantIsFirstCategoryResponse> => {
+  
+  const res = await fetch(getGetRestaurantIsFirstCategoryUrl(id),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text()
+  const data: getRestaurantIsFirstCategoryResponse['data'] = body ? JSON.parse(body) : {}
+
+  return { data, status: res.status, headers: res.headers } as getRestaurantIsFirstCategoryResponse
+}
+
+
+
+/**
  * @summary Get Sections
  */
 export type getSectionsResponse = {
-  data: GetSectionsDTO[];
+  data: SectionDTO[];
   status: number;
   headers: Headers;
 }
@@ -814,53 +1814,66 @@ export const getSections = async (params: GetSectionsParams, options?: RequestIn
 
 
 
-export type sectionsControllerCreateResponse = {
+/**
+ * @summary Create Section
+ */
+export type createSectionResponse = {
   data: void;
   status: number;
   headers: Headers;
 }
 
-export const getSectionsControllerCreateUrl = () => {
+export const getCreateSectionUrl = () => {
 
 
   return `http://localhost:3333/sections`
 }
 
-export const sectionsControllerCreate = async (createSectionDTO: CreateSectionDTO, options?: RequestInit): Promise<sectionsControllerCreateResponse> => {
+export const createSection = async (requestCreateSectionDTO: RequestCreateSectionDTO, options?: RequestInit): Promise<createSectionResponse> => {
   
-  const res = await fetch(getSectionsControllerCreateUrl(),
+  const res = await fetch(getCreateSectionUrl(),
   {      
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(
-      createSectionDTO,)
+      requestCreateSectionDTO,)
   }
 )
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text()
-  const data: sectionsControllerCreateResponse['data'] = body ? JSON.parse(body) : {}
+  const data: createSectionResponse['data'] = body ? JSON.parse(body) : {}
 
-  return { data, status: res.status, headers: res.headers } as sectionsControllerCreateResponse
+  return { data, status: res.status, headers: res.headers } as createSectionResponse
 }
 
 
 
-export type sectionsControllerGetByIdResponse = {
-  data: void;
+/**
+ * @summary Get Sections with items
+ */
+export type getSectionsWithItemsResponse = {
+  data: ResponseGetSectionsWithItemsDTO[];
   status: number;
   headers: Headers;
 }
 
-export const getSectionsControllerGetByIdUrl = (id: string,) => {
+export const getGetSectionsWithItemsUrl = (params: GetSectionsWithItemsParams,) => {
+  const normalizedParams = new URLSearchParams();
 
+  Object.entries(params || {}).forEach(([key, value]) => {
+    
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : value.toString())
+    }
+  });
 
-  return `http://localhost:3333/sections/${id}`
+  return normalizedParams.size ? `http://localhost:3333/sections/get-with-items?${normalizedParams.toString()}` : `http://localhost:3333/sections/get-with-items`
 }
 
-export const sectionsControllerGetById = async (id: string, options?: RequestInit): Promise<sectionsControllerGetByIdResponse> => {
+export const getSectionsWithItems = async (params: GetSectionsWithItemsParams, options?: RequestInit): Promise<getSectionsWithItemsResponse> => {
   
-  const res = await fetch(getSectionsControllerGetByIdUrl(id),
+  const res = await fetch(getGetSectionsWithItemsUrl(params),
   {      
     ...options,
     method: 'GET'
@@ -870,9 +1883,147 @@ export const sectionsControllerGetById = async (id: string, options?: RequestIni
 )
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text()
-  const data: sectionsControllerGetByIdResponse['data'] = body ? JSON.parse(body) : {}
+  const data: getSectionsWithItemsResponse['data'] = body ? JSON.parse(body) : {}
 
-  return { data, status: res.status, headers: res.headers } as sectionsControllerGetByIdResponse
+  return { data, status: res.status, headers: res.headers } as getSectionsWithItemsResponse
+}
+
+
+
+/**
+ * @summary Get Section By Id
+ */
+export type getSectionByIdResponse = {
+  data: ResponseGetSectionByIdDTO;
+  status: number;
+  headers: Headers;
+}
+
+export const getGetSectionByIdUrl = (id: string,) => {
+
+
+  return `http://localhost:3333/sections/${id}`
+}
+
+export const getSectionById = async (id: string, options?: RequestInit): Promise<getSectionByIdResponse> => {
+  
+  const res = await fetch(getGetSectionByIdUrl(id),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text()
+  const data: getSectionByIdResponse['data'] = body ? JSON.parse(body) : {}
+
+  return { data, status: res.status, headers: res.headers } as getSectionByIdResponse
+}
+
+
+
+/**
+ * @summary Delete Section
+ */
+export type deleteSectionResponse = {
+  data: void;
+  status: number;
+  headers: Headers;
+}
+
+export const getDeleteSectionUrl = (id: string,) => {
+
+
+  return `http://localhost:3333/sections/${id}`
+}
+
+export const deleteSection = async (id: string, options?: RequestInit): Promise<deleteSectionResponse> => {
+  
+  const res = await fetch(getDeleteSectionUrl(id),
+  {      
+    ...options,
+    method: 'DELETE'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text()
+  const data: deleteSectionResponse['data'] = body ? JSON.parse(body) : {}
+
+  return { data, status: res.status, headers: res.headers } as deleteSectionResponse
+}
+
+
+
+/**
+ * @summary Update Section
+ */
+export type updateSectionResponse = {
+  data: void;
+  status: number;
+  headers: Headers;
+}
+
+export const getUpdateSectionUrl = (id: string,) => {
+
+
+  return `http://localhost:3333/sections/${id}`
+}
+
+export const updateSection = async (id: string,
+    requestUpdateSectionDTO: RequestUpdateSectionDTO, options?: RequestInit): Promise<updateSectionResponse> => {
+  
+  const res = await fetch(getUpdateSectionUrl(id),
+  {      
+    ...options,
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      requestUpdateSectionDTO,)
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text()
+  const data: updateSectionResponse['data'] = body ? JSON.parse(body) : {}
+
+  return { data, status: res.status, headers: res.headers } as updateSectionResponse
+}
+
+
+
+/**
+ * @summary Toggle Section
+ */
+export type toggleSectionResponse = {
+  data: void;
+  status: number;
+  headers: Headers;
+}
+
+export const getToggleSectionUrl = (id: string,) => {
+
+
+  return `http://localhost:3333/sections/toggle/${id}`
+}
+
+export const toggleSection = async (id: string, options?: RequestInit): Promise<toggleSectionResponse> => {
+  
+  const res = await fetch(getToggleSectionUrl(id),
+  {      
+    ...options,
+    method: 'PATCH'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text()
+  const data: toggleSectionResponse['data'] = body ? JSON.parse(body) : {}
+
+  return { data, status: res.status, headers: res.headers } as toggleSectionResponse
 }
 
 

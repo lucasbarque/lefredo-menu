@@ -10,7 +10,7 @@ export function SectionsList({
   currentSection,
   restaurant,
 }: SectionsListProps) {
-  const { containerRef, buttonRefs } = useSectionsList({ currentSection });
+  const { containerRef, buttonRefs } = useSectionsList({ sections });
 
   return (
     <div

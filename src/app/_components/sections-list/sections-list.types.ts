@@ -1,11 +1,11 @@
-import { GetSectionsDTO } from '@/http/api';
+import { SectionDTO } from '@/http/api';
 
 export interface SectionsListProps {
-  sections: GetSectionsDTO[];
+  sections: SectionDTO[];
   restaurant: string;
   currentSection: string;
 }
 
 export interface useSectionsListProps {
-  currentSection: string;
+  sections: SectionDTO[];
 }

@@ -122,7 +122,10 @@ export default function Page({ params }: DishIdParams) {
             }
           >
             {dish?.description && (
-              <p className='text-text-default'>{dish.description}</p>
+              <p
+                className='text-text-default'
+                dangerouslySetInnerHTML={{ __html: dish.description }}
+              />
             )}
           </Loading>
           {/* Specs */}

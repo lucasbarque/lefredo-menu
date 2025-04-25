@@ -1,3 +1,11 @@
-import { GetDishesDTO } from '@/http/api';
+import { DishDTO } from '@/http/api';
 
-export type CardProps = Omit<GetDishesDTO, 'prepTime'>;
+export type CardProps = Omit<
+  DishDTO,
+  | 'prepTime'
+  | 'description'
+  | 'section'
+  | 'dishExtras'
+  | 'dishExtrasOrder'
+  | 'dishFlavors'
+>;

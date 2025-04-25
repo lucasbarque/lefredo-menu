@@ -2,7 +2,12 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ['lefredo-development.s3.us-east-1.amazonaws.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: process.env.NEXT_PUBLIC_IMAGE_REMOTE_PATTERN || '',
+      },
+    ],
   },
 };
 

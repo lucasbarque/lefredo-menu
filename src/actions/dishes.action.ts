@@ -4,7 +4,7 @@ import { getDishById, getDishesBySlug } from '@/http/api';
 
 const REVALIDATE_TIME = 60 * 10; // 10 minutes
 
-export async function getDishesBySectionSlug(slug: string) {
+export async function getDishesBySlugAPI(slug: string) {
   const response = await getDishesBySlug(slug, {
     next: {
       revalidate: REVALIDATE_TIME,
@@ -14,7 +14,7 @@ export async function getDishesBySectionSlug(slug: string) {
   return response;
 }
 
-export async function getDishDetailsById(id: string) {
+export async function getDishByIdAPI(id: string) {
   const response = await getDishById(id, {
     next: {
       revalidate: REVALIDATE_TIME,

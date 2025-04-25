@@ -4,7 +4,7 @@ import { GetSectionsParams, getSections } from '@/http/api';
 
 const REVALIDATE_TIME = 60 * 10; // 10 minutes
 
-export async function getSectionsByMenuId({ menuId }: GetSectionsParams) {
+export async function getSectionsAPI({ menuId }: GetSectionsParams) {
   const response = await getSections(
     { menuId },
     {
