@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 const nunito = Nunito({
-  weight: ['400', '500'],
+  weight: ['400', '500', '600', '800'],
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-nunito',

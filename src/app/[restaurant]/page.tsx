@@ -1,8 +1,8 @@
 import { Suspense } from 'react';
 
-import { getDishesBySectionSlug } from '@/actions/dishes.action';
-import { getRestaurant } from '@/actions/restaurants.action';
-import { getSectionsByMenuId } from '@/actions/sections.action';
+import { getDishesBySlugAPI } from '@/actions/dishes.action';
+import { getRestaurantBySlugAPI } from '@/actions/restaurants.action';
+import { getSectionsAPI } from '@/actions/sections.action';
 import clsx from 'clsx';
 import { notFound } from 'next/navigation';
 
@@ -20,9 +20,9 @@ export default async function Home({ params, searchParams }: PageHomeParams) {
 
   if (!restaurant) notFound();
 
-  const { data: restaurantData } = await getRestaurant(restaurant);
+  const { data: restaurantData } = await getRestaurantBySlugAPI(restaurant);
 
-  const sections = await getSectionsByMenuId({
+  const sections = await getSectionsAPI({
     menuId: restaurantData.Menu[0].id,
   });
 
@@ -30,7 +30,7 @@ export default async function Home({ params, searchParams }: PageHomeParams) {
 
   const currentSection = section || sections.data[0].slug;
 
-  const { data: dishes } = await getDishesBySectionSlug(currentSection);
+  const { data: dishes } = await getDishesBySlugAPI(currentSection);
 
   return (
     <div
@@ -38,12 +38,10 @@ export default async function Home({ params, searchParams }: PageHomeParams) {
         'z-0 flex h-screen w-screen flex-col overflow-hidden bg-white'
       )}
     >
-      <Suspense fallback='carregando header'>
-        <Header
-          logo={restaurantData.logo}
-          welcomeMessage={restaurantData.welcomeMessage}
-        />
-      </Suspense>
+      <Header
+        logo={restaurantData.logo}
+        welcomeMessage={restaurantData.welcomeMessage}
+      />
 
       <Suspense fallback={<LoadingSections />}>
         <SectionsList

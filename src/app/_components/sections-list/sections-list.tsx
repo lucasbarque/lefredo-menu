@@ -5,12 +5,8 @@ import { Chip } from '@/components/data-display/chip';
 import { SectionsListProps } from './sections-list.types';
 import useSectionsList from './use-sections-list';
 
-export function SectionsList({
-  sections,
-  currentSection,
-  restaurant,
-}: SectionsListProps) {
-  const { containerRef, buttonRefs } = useSectionsList({ currentSection });
+export function SectionsList({ sections, currentSection }: SectionsListProps) {
+  const { containerRef, buttonRefs } = useSectionsList({ sections });
 
   return (
     <div
@@ -23,7 +19,6 @@ export function SectionsList({
           section={section.slug}
           title={section.title}
           isActive={currentSection === section.slug}
-          restaurant={restaurant}
           ref={(element) => {
             if (element) {
               buttonRefs.current.set(section.slug, element);

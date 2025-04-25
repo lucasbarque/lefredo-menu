@@ -7,12 +7,16 @@ export function Header({ logo, welcomeMessage }: HeaderProps) {
     <div className='px-6 pt-6'>
       <div className='flex items-center justify-between'>
         <Image
-          src={process.env.NEXT_PUBLIC_BUCKET_URL + logo}
+          src={
+            logo
+              ? process.env.NEXT_PUBLIC_BUCKET_URL + logo
+              : '/icons/logo-lefredo.svg'
+          }
           alt=''
-          width={104}
-          height={46}
+          width={100}
+          height={50}
           priority
-          className='h-[46px] w-[104px]'
+          className='h-[50px] w-[100px]'
         />
         {
           <Image

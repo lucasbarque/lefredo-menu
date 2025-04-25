@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { ChipProps } from './chip.types';
 
 export const Chip = forwardRef<HTMLButtonElement, ChipProps>(
-  ({ section, restaurant, title, isActive = false, ...rest }, ref) => {
+  ({ section, title, isActive = false, ...rest }, ref) => {
     return (
       <button
         ref={ref}
@@ -19,9 +19,7 @@ export const Chip = forwardRef<HTMLButtonElement, ChipProps>(
         )}
         {...rest}
       >
-        <Link href={`?restaurant=${restaurant}&section=${section}`}>
-          {title}
-        </Link>
+        <Link href={`?section=${section}`}>{title}</Link>
       </button>
     );
   }

@@ -9,13 +9,13 @@ export function Checkbox({ label, id, ...rest }: CheckboxProps) {
   return (
     <label
       htmlFor={id}
-      className="flex items-center gap-1 text-text-default text-sm font-bold"
+      className='text-text-default flex items-center gap-1 text-sm font-medium'
     >
       <input
         {...rest}
         id={id}
-        type="checkbox"
-        className="appearance-none border-text-default checked:bg-brand-primary rounded-sm  focus:ring-transparent"
+        type='checkbox'
+        className='border-text-default checked:text-brand-primary appearance-none rounded-sm focus:ring-transparent'
       />
       {label}
     </label>
