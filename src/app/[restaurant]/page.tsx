@@ -47,7 +47,6 @@ export default async function Home({ params, searchParams }: PageHomeParams) {
         <SectionsList
           currentSection={currentSection}
           sections={sections.data}
-          restaurant={restaurant}
         />
         <Suspense fallback={<LoadingDishes />}>
           <div className='flex-1 overflow-y-auto px-6 pb-36'>

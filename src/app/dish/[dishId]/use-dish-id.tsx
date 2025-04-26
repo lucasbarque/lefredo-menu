@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 
 import { getDishByIdAPI } from '@/actions/dishes.action';
@@ -65,7 +66,6 @@ export function useDishId(id: string) {
         };
       }) || [];
     setImages(mediasFlavors);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentFlavorId]);
 
   return {
