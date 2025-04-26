@@ -6,5 +6,5 @@ export interface SectionsListProps {
 }
 
 export interface useSectionsListProps {
-  sections: SectionDTO[];
+  currentSection: string;
 }

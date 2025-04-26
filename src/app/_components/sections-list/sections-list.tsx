@@ -6,7 +6,7 @@ import { SectionsListProps } from './sections-list.types';
 import useSectionsList from './use-sections-list';
 
 export function SectionsList({ sections, currentSection }: SectionsListProps) {
-  const { containerRef, buttonRefs } = useSectionsList({ sections });
+  const { containerRef, buttonRefs } = useSectionsList({ currentSection });
 
   return (
     <div
