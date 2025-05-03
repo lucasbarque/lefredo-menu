@@ -9,8 +9,7 @@
     "lint": "next lint",
     "check-format": "prettier --check .",
     "check-types": "tsc --pretty --noEmit",
-    "format": "prettier --write .",
-    "prepare": "husky"
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@tabler/icons-react": "^3.30.0",
