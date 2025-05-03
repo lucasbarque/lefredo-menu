@@ -16,7 +16,7 @@ export function AdditionalsList({
   });
 
   return (
-    <form className="flex flex-col gap-1">
+    <form className='flex flex-col gap-1'>
       {dishExtras.map((extra) => (
         <Checkbox
           key={extra.id}
@@ -35,7 +35,7 @@ export function AdditionalsList({
       <Checkbox
         value={0}
         label={`Nenhum`}
-        id="none"
+        id='none'
         checked={selectedExtras.includes('none')}
         onChange={(e) => handleCheckboxChange('none', 0, e.target.checked)}
       />
