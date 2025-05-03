@@ -4,7 +4,7 @@ import { getDishesBySlugAPI } from '@/actions/dishes.action';
 import { getRestaurantBySlugAPI } from '@/actions/restaurants.action';
 import { getSectionsAPI } from '@/actions/sections.action';
 import clsx from 'clsx';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 
 import { Card } from '@/components/data-display/card';
 import { Header } from '@/components/data-display/header';
@@ -25,12 +25,12 @@ export default async function Home({ params, searchParams }: PageHomeParams) {
   const sections = await getSectionsAPI({
     menuId: restaurantData.Menu[0].id,
   });
-
   if (sections.status !== 200 || sections.data.length === 0) notFound();
 
   const currentSection = section || sections.data[0].slug;
 
-  const { data: dishes } = await getDishesBySlugAPI(currentSection);
+  const dishes = await getDishesBySlugAPI(currentSection);
+  if (dishes.status !== 200) redirect('/' + restaurant);
 
   return (
     <div
@@ -49,10 +49,10 @@ export default async function Home({ params, searchParams }: PageHomeParams) {
           sections={sections.data}
         />
         <Suspense fallback={<LoadingDishes />}>
-          <div className='flex-1 overflow-y-auto px-6 pb-36'>
+          <div className='flex-1 overflow-y-auto px-6 pt-2 pb-36'>
             <div className='pb-6'>
               <div className='flex flex-col gap-3'>
-                {dishes.map((dish) => (
+                {dishes.data.map((dish) => (
                   <Card
                     id={dish.id}
                     key={dish.id}

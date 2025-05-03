@@ -1,3 +1,3 @@
 export function Line() {
-  return <div className="h-[1px] w-full bg-line" />;
+  return <div className='bg-line h-[1px] w-full' />;
 }

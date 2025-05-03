@@ -11,11 +11,11 @@ export function useAdditionalsList({
 
   useEffect(() => {
     const selectedPrices = selectedExtras.map(
-      (extraId) => dishExtras.find((extra) => extra.id === extraId)?.price || 0,
+      (extraId) => dishExtras.find((extra) => extra.id === extraId)?.price || 0
     );
     const totalExtrasPrice = selectedPrices.reduce(
       (acc, extraPrice) => acc + extraPrice,
-      0,
+      0
     );
     setPrice(dishPrice + totalExtrasPrice);
   }, [selectedExtras, dishExtras, dishPrice, setPrice]);

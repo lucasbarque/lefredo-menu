@@ -3,10 +3,20 @@
 
 html {
   @apply h-full font-sans antialiased;
+
+  ul {
+    @apply list-[inherit] pl-[1em];
+  }
 }
 
 body {
   @apply h-full;
+}
+
+.editor-container {
+  a {
+    @apply text-blue-700 underline;
+  }
 }
 
 @theme {

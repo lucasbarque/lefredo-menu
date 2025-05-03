@@ -30,29 +30,33 @@ export default function Page({ params }: DishIdParams) {
     setPrice,
   } = useDishId(dishId);
 
+  console.log(dish);
+
+  const selectedFlavor = dish.dishFlavors?.find(
+    (f) => f.id === currentFlavorId
+  );
+  const descriptionHtml = selectedFlavor?.description ?? dish.description ?? '';
+
   return (
     <div className='relative z-0 pb-6'>
       <ButtonBack className='absolute top-7 left-5 z-40' />
 
       {images?.length > 0 && <Slider images={images} />}
 
-      {hasHighlighted && (
+      {hasHighlighted && images?.length > 0 && (
         <div className='bg-brand-primary text-chip-title-active absolute top-8 right-0 z-40 mx-auto flex h-8 w-fit items-center justify-center rounded-tl-md rounded-bl-md px-4 text-lg'>
           {hasHighlighted.DishSpecs.title}
         </div>
       )}
 
       <div
-        className={clsx(
-          'z-[999] flex flex-col rounded-t-2xl bg-white shadow-[0px_-13px_45px_-36px_#0d0d0d]',
-          {
-            '-mt-4': images?.length > 0,
-          }
-        )}
+        className={clsx('z-[999] flex flex-col rounded-t-2xl bg-white', {
+          '-mt-4': images?.length > 0,
+        })}
       >
         <div
           className={clsx('px-6 pt-2', {
-            'mt-3': images && images.length == 0,
+            'mt-3': images && images.length === 0,
           })}
         >
           <div className='flex items-center justify-between pb-2'>
@@ -109,6 +113,7 @@ export default function Page({ params }: DishIdParams) {
 
           {images?.length > 0 && <Line />}
         </div>
+
         <div className='flex flex-col gap-4 overflow-y-auto px-6 pt-4 pb-4'>
           {/* Description */}
           <Loading
@@ -121,10 +126,10 @@ export default function Page({ params }: DishIdParams) {
               </div>
             }
           >
-            {dish?.description && (
-              <p
-                className='text-text-default'
-                dangerouslySetInnerHTML={{ __html: dish.description }}
+            {descriptionHtml && (
+              <div
+                className='text-text-default editor-container'
+                dangerouslySetInnerHTML={{ __html: descriptionHtml }}
               />
             )}
           </Loading>
@@ -135,7 +140,7 @@ export default function Page({ params }: DishIdParams) {
               <div className='h-[2.125rem] w-full animate-pulse rounded-full bg-slate-200' />
             }
           >
-            {dish?.dishSpecs?.length > 0 && (
+            {(dish?.dishSpecs?.length > 0 || dish.prepTime) && (
               <SpecsDetails specs={dish.dishSpecs} prepTime={dish.prepTime} />
             )}
           </Loading>
@@ -195,9 +200,10 @@ export default function Page({ params }: DishIdParams) {
                 <h2 className='font-secondary text-title-default font-medium'>
                   Observações
                 </h2>
-                <p className='text-text-default text-sm'>
-                  {dish.section.description}
-                </p>
+                <div
+                  className='text-text-default text-sm'
+                  dangerouslySetInnerHTML={{ __html: dish.section.description }}
+                />
               </div>
             )}
           </Loading>
