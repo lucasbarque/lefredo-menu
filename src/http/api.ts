@@ -339,6 +339,10 @@ export type GetAllSectionsParams = {
 menuId: string;
 };
 
+export type GetActiveSectionsParams = {
+menuId: string;
+};
+
 
 
 /**
@@ -1534,6 +1538,41 @@ export const getGetAllSectionsUrl = (params: GetAllSectionsParams,) => {
 export const getAllSections = async (params: GetAllSectionsParams, options?: RequestInit): Promise<getAllSectionsResponse> => {
   
   return customFetch<getAllSectionsResponse>(getGetAllSectionsUrl(params),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+);}
+
+
+
+/**
+ * @summary Get active Sections
+ */
+export type getActiveSectionsResponse = {
+  data: SectionDTO[];
+  status: number;
+  headers: Headers;
+}
+
+export const getGetActiveSectionsUrl = (params: GetActiveSectionsParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : value.toString())
+    }
+  });
+
+  return normalizedParams.size ? `/sections/get-active?${normalizedParams.toString()}` : `/sections/get-active`
+}
+
+export const getActiveSections = async (params: GetActiveSectionsParams, options?: RequestInit): Promise<getActiveSectionsResponse> => {
+  
+  return customFetch<getActiveSectionsResponse>(getGetActiveSectionsUrl(params),
   {      
     ...options,
     method: 'GET'

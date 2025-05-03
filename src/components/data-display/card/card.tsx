@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import { Tag } from '@/components/data-display/tag';
 
-import { Specs } from '../specs/specs';
+import { Spec } from '../spec/spec';
 import { CardProps } from './card.types';
 
 export function Card({
@@ -33,7 +33,7 @@ export function Card({
         <div className='flex flex-col justify-center'>
           {portion && <Tag title={portion} />}
 
-          <div className='text-title-default line-clamp-2 pt-1 font-bold'>
+          <div className='text-title-default line-clamp-2 pt-1 pr-12 font-bold'>
             {title}
           </div>
           <div className='text-title-default pt-1 text-sm font-medium'>
@@ -45,7 +45,14 @@ export function Card({
           </div>
         </div>
       </div>
-      <Specs specs={dishSpecs} />
+      {/* <Specs specs={dishSpecs} /> */}
+      {dishSpecs.length > 0 && (
+        <div className='text-text-default absolute top-3 right-3 flex h-[100px] flex-col flex-wrap-reverse gap-2'>
+          {dishSpecs.map((spec) => (
+            <Spec key={spec.DishSpecs.id} keySpec={spec.DishSpecs.key} />
+          ))}
+        </div>
+      )}
     </Link>
   );
 }

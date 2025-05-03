@@ -11,7 +11,7 @@ export function SectionsList({ sections, currentSection }: SectionsListProps) {
   return (
     <div
       ref={containerRef}
-      className='z-10 flex gap-2 overflow-x-auto px-6 pt-3 pb-3'
+      className='z-10 flex gap-2 overflow-x-auto px-6 pt-3 pb-1'
     >
       {sections.map((section) => (
         <Chip
