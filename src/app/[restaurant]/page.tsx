@@ -29,7 +29,10 @@ export default async function Home({ params, searchParams }: PageHomeParams) {
 
   const currentSection = section || sections.data[0].slug;
 
-  const dishes = await getDishesBySlugAPI(currentSection);
+  const dishes = await getDishesBySlugAPI(
+    currentSection,
+    restaurantData.Menu[0].id
+  );
   if (dishes.status !== 200) redirect('/' + restaurant);
 
   return (

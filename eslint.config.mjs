@@ -18,6 +18,7 @@ const eslintConfig = [
     rules: {
       'react-hooks/rules-of-hooks': 'off',
       '@typescript-eslint/ban-ts-comment': 'off',
+      'no-console': 'warn',
     },
   },
 ];
