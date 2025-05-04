@@ -591,18 +591,22 @@ export type getDishesBySlugResponse = {
   headers: Headers;
 };
 
-export const getGetDishesBySlugUrl = (slug: string) => {
-  return `/dishes/slug/${slug}`;
+export const getGetDishesBySlugUrl = (slug: string, menuId: string) => {
+  return `/dishes/slug/${slug}/${menuId}`;
 };
 
 export const getDishesBySlug = async (
   slug: string,
+  menuId: string,
   options?: RequestInit
 ): Promise<getDishesBySlugResponse> => {
-  return customFetch<getDishesBySlugResponse>(getGetDishesBySlugUrl(slug), {
-    ...options,
-    method: 'GET',
-  });
+  return customFetch<getDishesBySlugResponse>(
+    getGetDishesBySlugUrl(slug, menuId),
+    {
+      ...options,
+      method: 'GET',
+    }
+  );
 };
 
 /**

@@ -30,8 +30,6 @@ export default function Page({ params }: DishIdParams) {
     setPrice,
   } = useDishId(dishId);
 
-  console.log(dish);
-
   const selectedFlavor = dish.dishFlavors?.find(
     (f) => f.id === currentFlavorId
   );
