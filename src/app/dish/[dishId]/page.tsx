@@ -138,7 +138,7 @@ export default function Page({ params }: DishIdParams) {
               <div className='h-[2.125rem] w-full animate-pulse rounded-full bg-slate-200' />
             }
           >
-            {(dish?.dishSpecs?.length > 0 || dish.prepTime) && (
+            {(dish?.dishSpecs?.length > 0 || dish.prepTime > 0) && (
               <SpecsDetails specs={dish.dishSpecs} prepTime={dish.prepTime} />
             )}
           </Loading>

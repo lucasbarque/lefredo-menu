@@ -11,7 +11,7 @@ export function useDishId(id: string) {
   const [price, setPrice] = useState(0);
   const [hasHighlighted, setHasHighlighted] = useState<DishSpecsDTO>();
   const [currentFlavorId, setCurrentFlavorId] = useState<string>('');
-  const originalDescription = useRef<string>('');
+  const originalDescription = useRef<string | null>(null);
 
   useEffect(() => {
     (async () => {

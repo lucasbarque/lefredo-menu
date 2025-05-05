@@ -15,6 +15,8 @@ export const GetUserByRestaurantIdRole = {
   ADMIN: 'ADMIN',
 } as const;
 
+export type GetUserByRestaurantIdRestaurantId = { [key: string]: unknown };
+
 export interface GetUserByRestaurantId {
   id: string;
   name: string;
@@ -23,7 +25,7 @@ export interface GetUserByRestaurantId {
   active: boolean;
   role: GetUserByRestaurantIdRole;
   onboardingFinished: boolean;
-  restaurantId: string;
+  restaurantId: GetUserByRestaurantIdRestaurantId;
 }
 
 export interface CreateMenuDTO {
@@ -34,10 +36,12 @@ export interface UpdateMenuDTO {
   [key: string]: unknown;
 }
 
+export type SectionDTODescription = { [key: string]: unknown };
+
 export interface SectionDTO {
   id: string;
   title: string;
-  description: string;
+  description: SectionDTODescription;
   slug: string;
   isActive: boolean;
 }
@@ -58,8 +62,10 @@ export interface DishFlavorsDTO {
   id: string;
   title: string;
   label: string;
-  price: number;
-  description: string;
+  /** @nullable */
+  price: number | null;
+  /** @nullable */
+  description: string | null;
   dishFlavorsMedias: DishFlavorsMediaDTO[];
 }
 
@@ -84,12 +90,17 @@ export const DishSpecKey = {
   highlighted: 'highlighted',
 } as const;
 
+/**
+ * @nullable
+ */
+export type DishSpecDescription = { [key: string]: unknown } | null;
+
 export interface DishSpec {
   id: string;
   title: string;
   key: DishSpecKey;
   /** @nullable */
-  description: string | null;
+  description: DishSpecDescription;
 }
 
 export interface DishSpecsDTO {
@@ -98,27 +109,32 @@ export interface DishSpecsDTO {
   DishSpecs: DishSpec;
 }
 
+export type DishDTODishExtrasOrder = { [key: string]: unknown };
+
 export interface DishDTO {
   id: string;
   title: string;
-  description: string;
+  /** @nullable */
+  description: string | null;
   price: number;
   portion: string;
-  prepTime: string;
+  prepTime: number;
   section: SectionDTO;
   dishExtras: DishExtraDTO[];
   dishFlavors: DishFlavorsDTO[];
   dishMedias: DishMediasDTO[];
   dishSpecs: DishSpecsDTO[];
-  dishExtrasOrder: string[];
+  dishExtrasOrder: DishDTODishExtrasOrder;
 }
+
+export type ResponseGetDishesDTOPrepTime = { [key: string]: unknown };
 
 export interface ResponseGetDishesDTO {
   id: string;
   title: string;
   price: number;
   portion: string;
-  prepTime: string;
+  prepTime: ResponseGetDishesDTOPrepTime;
   dishSpecs: DishSpecsDTO[];
   dishMedias: DishMediasDTO[];
   isActive: boolean;
@@ -128,8 +144,7 @@ export interface RequestCreateDishDTO {
   title: string;
   portion: string;
   price: string;
-  /** @nullable */
-  prepTime: string | null;
+  prepTime: number;
   flagged: string;
   /** @nullable */
   description: string | null;
@@ -144,8 +159,6 @@ export interface RequestUpdateDishDTO {
   title: string;
   portion: string;
   price: string;
-  /** @nullable */
-  prepTime: string | null;
   flagged: string;
   /** @nullable */
   description: string | null;
@@ -268,8 +281,10 @@ export interface Menu {
 export interface GetRestaurantBySlugDTO {
   id: string;
   name: string;
-  welcomeMessage: string;
-  logo: string;
+  /** @nullable */
+  welcomeMessage: string | null;
+  /** @nullable */
+  logo: string | null;
   slug: string;
   Menu: Menu[];
 }
@@ -277,8 +292,10 @@ export interface GetRestaurantBySlugDTO {
 export interface GetRestaurantByIdDTO {
   id: string;
   name: string;
-  welcomeMessage: string;
-  logo: string;
+  /** @nullable */
+  welcomeMessage: string | null;
+  /** @nullable */
+  logo: string | null;
 }
 
 export interface UpdateResturantDTO {
@@ -318,10 +335,17 @@ export interface RequestCreateSectionDTO {
   description: string | null;
 }
 
+/**
+ * @nullable
+ */
+export type RequestUpdateSectionDTODescription = {
+  [key: string]: unknown;
+} | null;
+
 export interface RequestUpdateSectionDTO {
   title: string;
   /** @nullable */
-  description: string | null;
+  description: RequestUpdateSectionDTODescription;
 }
 
 export type MenusControllerGetByRestaurantParams = {

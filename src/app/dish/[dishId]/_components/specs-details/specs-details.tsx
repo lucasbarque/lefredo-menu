@@ -12,11 +12,11 @@ export function SpecsDetails({ specs, prepTime }: SpecProps) {
 
   return (
     <div className='bg-tag-details-background flex w-full flex-wrap items-center justify-center gap-x-4 rounded-2xl px-2'>
-      {prepTime && (
+      {prepTime > 0 && (
         <div className='flex h-[2.125rem] items-center gap-1'>
           <IconClockHour4 className='text-text-default' size={16} />
           <span className='text-title-default text-sm font-medium'>
-            {prepTime}
+            {prepTime === 1 ? '01 Minuto' : `${prepTime} minutos`}
           </span>
         </div>
       )}

@@ -1,4 +1,4 @@
 export interface HeaderProps {
-  logo: string;
-  welcomeMessage?: string;
+  logo: string | null;
+  welcomeMessage: string | null;
 }
