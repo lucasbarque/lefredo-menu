@@ -45,12 +45,26 @@ export function Card({
           </div>
         </div>
       </div>
-      {/* <Specs specs={dishSpecs} /> */}
+
       {dishSpecs.length > 0 && (
         <div className='text-text-default absolute top-3 right-3 flex h-[100px] flex-col flex-wrap-reverse gap-2'>
-          {dishSpecs.map((spec) => (
-            <Spec key={spec.DishSpecs.id} keySpec={spec.DishSpecs.key} />
-          ))}
+          {dishSpecs.some((spec) => spec.DishSpecs.key === 'highlighted') ? (
+            <>
+              <div className='bg-brand-primary -mr-3 flex items-center justify-center rounded-tl-md rounded-bl-md py-1 pr-2 pl-3 text-xs text-white'>
+                Mais pedido
+              </div>
+
+              <div className='absolute top-8 -right-1 flex h-[80px] flex-col flex-wrap-reverse gap-2'>
+                {dishSpecs.map((spec) => (
+                  <Spec key={spec.DishSpecs.id} keySpec={spec.DishSpecs.key} />
+                ))}
+              </div>
+            </>
+          ) : (
+            dishSpecs.map((spec) => (
+              <Spec key={spec.DishSpecs.id} keySpec={spec.DishSpecs.key} />
+            ))
+          )}
         </div>
       )}
     </Link>
